@@ -1,4 +1,3 @@
-; comment test 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
@@ -215,7 +214,7 @@
 ;;====================================
 ;; Ivy-bibtex : managing bibliography 
 (setq bibtex-completion-bibliography
-      '("/home/migap/Nextcloud/documents/miq5/pfe/dextair/bibtex/dextair.bib"
+      '("/home/migap/Nextcloud/bibliography/allBiblio.bib"
         ))
 (setq bibtex-completion-pdf-field "file")
 
