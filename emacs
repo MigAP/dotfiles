@@ -205,7 +205,9 @@ A->B
   :ensure t
   :config
   (evil-mode 1)
-  (evil-set-initial-state 'dired-mode 'emacs)); disbable evil mode when dired 
+  (evil-set-initial-state 'dired-mode 'emacs); disbable evil mode when dired 
+  (evil-set-initial-state 'deft-mode 'emacs); disbable evil mode when in deft  
+  )
 
 ;;====================================
 ;; KEY-CHORD 
