@@ -18,7 +18,7 @@
  '(org-agenda-files
    '("~/Nextcloud/orgRoam/20201008150915-mechanical_design_optimization_for_aerial_manipulators.org"))
  '(package-selected-packages
-   '(ess matlab-mode visual-fill-column monokai-pro-theme cdlatex elpy toc-org ivy-bibtex org-ref magit yasnippet-snippets org-roam linum-relative ivy auctex monokai-theme yasnippet key-chord evil use-package)))
+   '(deft ess matlab-mode visual-fill-column monokai-pro-theme cdlatex elpy toc-org ivy-bibtex org-ref magit yasnippet-snippets org-roam linum-relative ivy auctex monokai-theme yasnippet key-chord evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -370,3 +370,16 @@ A->B
 ;; silently not use it.
 (unless (file-exists-p ispell-personal-dictionary)
   (write-region "" nil ispell-personal-dictionary nil 0))
+
+;;====================================
+;; Deft
+;;====================================
+(use-package deft
+  :after org
+  :bind
+  ("C-c n d" . deft)
+  :custom
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory "~/org/"))
