@@ -155,11 +155,11 @@ A->B
 ;;ORG CAPTURE 
 ;;====================================
 (global-set-key (kbd "C-c c") 'org-capture)
-(setq org-default-notes-file (concat org-directory "~/Nextcloud/these/org/notes.org"))
+(setq org-default-notes-file (concat org-directory "~/org/capture/notes.org"))
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/Nextcloud/these/org/gtd.org" "Tasks")
+      '(("t" "Todo" entry (file+headline "~/org/capture/gtd.org" "Tasks")
          "* TODO %?\n  %i\n  %a")
-        ("j" "Journal" entry (file+datetree "~/Nextcloud/these/org/journal.org")
+        ("j" "Journal" entry (file+datetree "~/org/capture/journal.org")
          "* %?\nEntered on %U\n  %i\n  %a")))
 
 ;;====================================
@@ -294,9 +294,9 @@ A->B
       :hook
       (after-init . org-roam-mode)
       :custom
-      (org-roam-directory "~/Nextcloud/orgRoam")
+      (org-roam-directory "~/org/roam/")
       :config
-      (setq org-roam-index-file "~/Nextcloud/orgRoam/20200511193348-index.org")
+      (setq org-roam-index-file "~/org/roam/20200511193348-index.org")
       (setq org-roam-link-title-format "R:%s")
       :bind (:map org-roam-mode-map
               (("C-c n l" . org-roam)
