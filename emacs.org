@@ -1,0 +1,298 @@
+#+title: Configuration file for emacs 
+
+* Melpa 
+ The melpa repository has to be added manually to have access to
+ awesone packages : 
+ #+begin_src elisp :tangle yes 
+   (require 'package)
+   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+   (package-initialize)
+ #+end_src
+
+* use-package  
+  This package helps to have a nice and clean configuration file. It
+  can also auto-install packages which is usefull when having
+  different machines.
+  #+begin_src elisp :tangle yes 
+    ;; This is only needed once, near the top of the file
+    (eval-when-compile
+      (require 'use-package))
+  #+end_src
+
+* emacs behaviour 
+  General configurations for emacs :   
+  1. Turn bell off.
+  2. Improve scrolling experience.
+  3. Hide tool bar.
+  4. Enable the use of all symbols for other languages.
+  5. Set the font size.
+  6. Start emacs server. 
+  #+begin_src elisp :tangle yes
+    ;;====================================
+    ;; EMACS BEHAVIOUR
+    ;;====================================
+    ;; Turn off bell 
+    (setq ring-bell-function 'ignore)
+
+    ;; Scroll one line at a time (less "jumpy" than defaults)
+    (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+    (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+    (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+    ;; Scroll one line at the time 
+    (setq scroll-step 1)
+
+    ;; hide tool-bar 
+    (tool-bar-mode -1)
+
+    ;; To use all the symbols in the keyboard 
+    (require 'iso-transl) 
+
+    ;; Font size 
+    (set-face-attribute 'default nil :height 120)
+
+
+    ; make ibuffer default
+    (defalias 'list-buffers 'ibuffer) 
+
+    ; start the emacs server 
+    (server-start) 
+  #+end_src
+
+* TODO  org-mode
+** org-babel   
+   Tool used to work with code in org-mode files. 
+** org-capture 
+** org-ref 
+** org-roam
+* Deft 
+  Used to easily search the org-roam notes. 
+  #+begin_src elisp :tangle yes
+    ;;====================================
+    ;; Deft
+    ;;====================================
+    (use-package deft
+      :after org
+      :bind
+      ("C-c n d" . deft)
+      :custom
+      (deft-recursive t)
+      (deft-use-filter-string-for-filename t)
+      (deft-default-extension "org")
+      (deft-directory "~/org/"))
+  #+end_src
+
+* Magit 
+  Useful package to interact with git inside emacs. 
+  #+begin_src elisp :tangle yes
+    ;;====================================
+    ;; MAGIT
+    ;;====================================
+    (use-package magit
+      :ensure t 
+      :bind ("C-x g" . magit-status))
+  #+end_src
+
+* Evil 
+  Use vi inside emacs.
+  The mode is disabled in : 
+  1. Dired.
+  2. Deft.  
+  #+begin_src elisp :tangle yes
+    ;;====================================
+    ;;EVIL 
+    ;;====================================
+    (use-package evil
+      :ensure t
+      :config
+      (evil-mode 1)
+      (evil-set-initial-state 'dired-mode 'emacs); disbable evil mode when dired 
+      (evil-set-initial-state 'deft-mode 'emacs); disbable evil mode when in deft  
+      )
+  #+end_src
+
+* Key-chord
+  It allows to bind a sequence of keys to a command. 
+  #+begin_src elisp :tangle yes
+    ;;====================================
+    ;; KEY-CHORD 
+    ;;====================================
+    ;;Exit insert mode by pressing k and then j quickly
+    (use-package key-chord
+      :ensure t 
+      :config
+      (setq key-chord-two-keys-delay 0.5)
+      (key-chord-define evil-insert-state-map "kj" 'evil-normal-state) 
+      (key-chord-mode 1))
+  #+end_src
+
+* Linum relative 
+  Use relative line numbering with respect to point. 
+  #+begin_src elisp :tangle yes
+    ;;====================================
+    ;; LINUM RELATIVE
+    ;;====================================
+    (setq linum-relative-current-symbol "") ; instead of 0, displays actual line number in current line 
+  #+end_src
+
+* YAsnippet 
+  It allows to insert snippets of code. In order to use-it two
+  packages need to be installed :
+  1. yasnippet
+  2. yasnippet snippets (the one that contains the snippets...)
+  Yasnippet is activated in : 
+  1. octave mode.
+  2. LaTeX mode.
+  3. Org-mode. 
+  #+begin_src elisp :tangle yes
+    ;;====================================
+    ;; YAsnippet
+    ;;====================================
+    (use-package yasnippet
+      :ensure t
+      :config
+      (yas-reload-all)
+      (add-hook 'octave-mode-hook 'yas-minor-mode)
+      (add-hook 'LaTeX-mode-hook 'yas-minor-mode)
+      (add-hook 'org-mode-hook 'yas-minor-mode))
+  #+end_src
+
+* AUCTex 
+  Package used for writing LaTeX. It automatically activates the
+  reftex package which is used to easily interact with bibliography.
+  It sets Okular as the default PDF viewer : Shift + Click in Okular opens the file containing the inforation under the cursor. 
+  #+begin_src elisp :tangle yes
+    ;;====================================
+    ;; AUCTeX
+    ;;====================================
+
+    (use-package tex
+      ; It tries to install tex package and not auctex :ensure t 
+      :config
+      (setq TeX-auto-save t)
+      (setq TeX-parse-self t)
+      (setq-default TeX-master nil)
+      (add-hook 'latex-mode-hook 'turn-on-reftex)
+      (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
+      (add-hook 'LaTeX-mode-hook 'linum-relative-mode); with AUCTeX LaTeX mode
+      (setq reftex-plug-into-AUCTeX t) ; makes reftex colaborate with AUCTex
+
+      ;; ##### Enable synctex correlation. From Okular just press
+      ;; ##### Shift + Left click to go to the good line.
+      (setq TeX-source-correlate-mode t
+	    TeX-source-correlate-start-server t)
+      )
+
+    ;; ### Set Okular as the default PDF viewer.
+    (eval-after-load "tex"
+      '(setcar (cdr (assoc 'output-pdf TeX-view-program-selection)) "Okular"))
+  #+end_src
+
+* Ivy
+  Completition inside emacs.  
+  #+begin_src elisp :tangle yes 
+    ;;====================================
+    ;; IVY
+    ;;====================================
+    ;; Ivy mode for completition 
+    (ivy-mode 1)
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-count-format "(%d/%d) ")
+  #+end_src
+
+** Ivy Bibtex 
+   Use Ivy to work with bib files and insert references.  
+   #+begin_src elisp :tangle yes 
+     ;;====================================
+     ;; IVY BIBTEX
+     ;;====================================
+     ;; Ivy-bibtex : managing bibliography 
+     (setq bibtex-completion-bibliography
+	   '("/home/migap/Nextcloud/bibliography/allBiblio.bib"
+	     ))
+     (setq bibtex-completion-pdf-field "file")
+
+     ; citation configuration 
+     (setq bibtex-completion-format-citation-functions
+       '((org-mode      . bibtex-completion-format-citation-org-link-to-PDF) ; in order to insert a link to the files 
+	 (latex-mode    . bibtex-completion-format-citation-cite)
+	 (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)
+	 (default       . bibtex-completion-format-citation-default)))
+
+     (global-set-key (kbd "C-c b") 'ivy-bibtex)
+   #+end_src
+
+* Elpy 
+  Package to work with Python. There is a function to solve problems
+  when using company-mode and yasnippets. 
+  #+begin_src elisp :tangle yes
+    ;;====================================
+    ;; ELPY
+    ;;====================================
+
+    (use-package elpy
+      :ensure t
+      :defer t
+      :init
+      (advice-add 'python-mode :before 'elpy-enable)
+      :config
+      (setq python-shell-interpreter "ipython3"
+	  python-shell-interpreter-args "-i --simple-prompt"))
+
+    (defun company-yasnippet-or-completion ()
+      "Solve company yasnippet conflicts."
+      (interactive)
+      (let ((yas-fallback-behavior
+	     (apply 'company-complete-common nil)))
+	(yas-expand)))
+
+    (add-hook 'company-mode-hook
+	      (lambda ()
+		(substitute-key-definition
+		 'company-complete-common
+		 'company-yasnippet-or-completion
+		 company-active-map)))
+  #+end_src
+
+* visual-fill-column 
+  Limits the display of long lines to specific number of characters.
+  #+begin_src elisp :tangle yes
+    ;;====================================
+    ;; visual-fill-column  
+    ;;====================================
+    ; wrap lines when using visual-line-mode (does not work)
+    (add-hook 'visual-fill-column-mode-hook 'visual-line-mode)
+    ; column at which the text is wrapepd 
+    (setq visual-fill-column-width 100) 
+    ; center the text 
+    (setq visual-fill-column-center-text nil)
+  #+end_src
+
+* Ispell and hunspell 
+  Configuration of several dictionaries inside emacs. 
+  #+begin_src elisp :tangle yes
+    ;;====================================
+    ;; Ispell and hunspell config
+    ;;====================================
+
+    (with-eval-after-load "ispell"
+      ;; Configure `LANG`, otherwise ispell.el cannot find a 'default
+      ;; dictionary' even though multiple dictionaries will be configured
+      ;; in next line.
+      (setenv "LANG" "en_US")
+      (setq ispell-program-name "hunspell")
+      ;; Configure English, French and Spanish.
+      (setq ispell-dictionary "en_US,fr_FR,es_ES")
+      ;; ispell-set-spellchecker-params has to be called
+      ;; before ispell-hunspell-add-multi-dic will work
+      (ispell-set-spellchecker-params)
+      (ispell-hunspell-add-multi-dic "en_US,fr_FR,es_ES")
+      ;; For saving words to the personal dictionary, don't infer it from
+      ;; the locale, otherwise it would save to ~/.hunspell_de_DE.
+      (setq ispell-personal-dictionary "~/.hunspell_personal"))
+
+    ;; The personal dictionary file has to exist, otherwise hunspell will
+    ;; silently not use it.
+    (unless (file-exists-p ispell-personal-dictionary)
+      (write-region "" nil ispell-personal-dictionary nil 0))
+  #+end_src
+
