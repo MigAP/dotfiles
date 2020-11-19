@@ -87,7 +87,7 @@
              '("AUTO" "babel" t ("pdflatex")))
 
 ; scale the latex preview in org mode 
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 
 ; enable visual line mode by default in org files
 (add-hook 'org-mode-hook 'turn-on-visual-line-mode) 
