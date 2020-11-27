@@ -38,6 +38,14 @@
 ;; Scroll one line at the time 
 (setq scroll-step 1)
 (setq scroll-conservatively 10000)
+
+; Pixel scroll
+(pixel-scroll-mode)
+(setq pixel-dead-time 0) ; Never go back to the old scrolling behaviour.
+(setq pixel-resolution-fine-flag t) ; Scroll by number of pixels instead of lines (t = frame-char-height pixels).
+(setq mouse-wheel-scroll-amount '(1)) ; Distance in pixel-resolution to scroll each mouse wheel event.
+(setq mouse-wheel-progressive-speed nil) ; Progressive speed is too fast for me.
+
 ;; hide tool-bar 
 (tool-bar-mode -1)
 
