@@ -14,7 +14,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes '(monokai))
  '(custom-safe-themes
-   '("f3ab34b145c3b2a0f3a570ddff8fabb92dafc7679ac19444c31058ac305275e1" default))
+   '("8b58ef2d23b6d164988a607ee153fd2fa35ee33efc394281b1028c2797ddeebb" "f3ab34b145c3b2a0f3a570ddff8fabb92dafc7679ac19444c31058ac305275e1" default))
  '(org-agenda-files
    '("~/Nextcloud/orgRoam/20201008150915-mechanical_design_optimization_for_aerial_manipulators.org"))
  '(package-selected-packages
@@ -37,7 +37,7 @@
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 ;; Scroll one line at the time 
 (setq scroll-step 1)
-
+(setq scroll-conservatively 10000)
 ;; hide tool-bar 
 (tool-bar-mode -1)
 
@@ -83,8 +83,11 @@
 ;; Display images after code evaluation
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images) 
 
+(require 'ox-latex)
+; use minted package and also babel configuration
 (add-to-list 'org-latex-packages-alist
-             '("AUTO" "babel" t ("pdflatex")))
+             '("AUTO" "babel" t ("pdflatex") '("" "minted")))
+(setq org-latex-listings 'minted)
 
 ; scale the latex preview in org mode 
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
@@ -174,11 +177,12 @@ A->B
 (setq org-latex-prefer-user-labels t) ; to use my own references 
 
 ; For LaTeX export settings 
+; add shell escape for minted latex package
 (setq org-latex-pdf-process
-      '("pdflatex -interaction nonstopmode -output-directory %o %f"
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
 	"bibtex %b"
-	"pdflatex -interaction nonstopmode -output-directory %o %f"
-	"pdflatex -interaction nonstopmode -output-directory %o %f"))
+	"pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+	"pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
 (defun my/org-ref-open-pdf-at-point ()
   "Open the pdf for bibtex key under point if it exists."
