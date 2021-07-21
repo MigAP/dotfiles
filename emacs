@@ -16,9 +16,9 @@
  '(custom-safe-themes
    '("d9646b131c4aa37f01f909fbdd5a9099389518eb68f25277ed19ba99adeb7279" "8b58ef2d23b6d164988a607ee153fd2fa35ee33efc394281b1028c2797ddeebb" "f3ab34b145c3b2a0f3a570ddff8fabb92dafc7679ac19444c31058ac305275e1" default))
  '(org-agenda-files
-   '("~/org/roam/20201015085701-dextair_v3_design_objectives.org" "~/Seafile/thesis/reports/unconstrainedOptiProblem/unconstrainedOptiProblem.org" "~/Nextcloud/orgRoam/20201008150915-mechanical_design_optimization_for_aerial_manipulators.org"))
+   '("~/Seafile/thesis/administratif/inscriptions/2021_2022/rapport_avancement/rapport_avancement.org" "~/org/roam/20201015085701-dextair_v3_design_objectives.org" "~/Seafile/thesis/reports/unconstrainedOptiProblem/unconstrainedOptiProblem.org" "~/Nextcloud/orgRoam/20201008150915-mechanical_design_optimization_for_aerial_manipulators.org"))
  '(package-selected-packages
-   '(elfeed markdown-mode deft ess matlab-mode visual-fill-column monokai-pro-theme cdlatex elpy toc-org ivy-bibtex org-ref magit yasnippet-snippets org-roam linum-relative ivy auctex monokai-theme yasnippet key-chord evil use-package)))
+   '(projectile undo-tree elfeed markdown-mode deft ess matlab-mode visual-fill-column monokai-pro-theme cdlatex elpy toc-org ivy-bibtex org-ref magit yasnippet-snippets org-roam linum-relative ivy auctex monokai-theme yasnippet key-chord evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -221,6 +221,10 @@ A->B
   (evil-mode 1)
   (evil-set-initial-state 'dired-mode 'emacs); disbable evil mode when dired 
   (evil-set-initial-state 'deft-mode 'emacs); disbable evil mode when in deft  
+  (evil-set-initial-state 'elfeed-search-mode 'emacs); disbable evil mode when in elfeed  
+  (evil-set-initial-state 'elfeed-show-mode 'emacs); disbable evil mode when in elfeed  
+  (evil-set-undo-system 'undo-tree)
+  (global-undo-tree-mode 1)
   )
 
 ;;====================================
@@ -421,4 +425,12 @@ A->B
         "https://notrelated.xyz/rss"
         "https://robohub.org/feed?cat=-473"
         "https://xkcd.com/atom.xml"
+        "http://www.aaronsw.com/2002/feeds/pgessays.rss"
+        "https://ambrevar.xyz/atom.xml"
         ))
+
+;;====================================
+;; Projectile 
+;;====================================
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
