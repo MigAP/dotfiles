@@ -309,24 +309,41 @@ A->B
 ;;====================================
 ;; ORG ROAM 
 ;;====================================
+;(use-package org-roam
+;      :ensure t
+;      :hook
+;      (after-init . org-roam-mode)
+;      :custom
+;      (org-roam-directory "~/org/roam/")
+;      :config
+;      (setq org-roam-index-file "~/org/roam/20200511193348-index.org")
+;      (setq org-roam-link-title-format "R:%s")
+;      :bind (:map org-roam-mode-map
+;              (("C-c n l" . org-roam)
+;               ("C-c n f" . org-roam-find-file)
+;               ("C-c n g" . org-roam-graph-show)
+;               ("C-c n j" . org-roam-jump-to-index)
+;               ("C-c n b" . org-roam-switch-to-buffer))
+;              :map org-mode-map
+;              (("C-c n i" . org-roam-insert))
+;              (("C-c n I" . org-roam-insert-immediate))))
+
 (use-package org-roam
-      :ensure t
-      :hook
-      (after-init . org-roam-mode)
-      :custom
-      (org-roam-directory "~/org/roam/")
-      :config
-      (setq org-roam-index-file "~/org/roam/20200511193348-index.org")
-      (setq org-roam-link-title-format "R:%s")
-      :bind (:map org-roam-mode-map
-              (("C-c n l" . org-roam)
-               ("C-c n f" . org-roam-find-file)
-               ("C-c n g" . org-roam-graph-show)
-               ("C-c n j" . org-roam-jump-to-index)
-               ("C-c n b" . org-roam-switch-to-buffer))
-              :map org-mode-map
-              (("C-c n i" . org-roam-insert))
-              (("C-c n I" . org-roam-insert-immediate))))
+  :ensure t
+  :after org
+  :init
+  (setq org-roam-v2-ack t) ;; acknowledge upgrade and remove warning at startup
+  :config
+  (setq org-roam-directory
+        (file-truename "/home/migap/org/roam/"))
+  (setq org-roam-db-location
+        (concat org-roam-directory "org-roam.db"))
+  (org-roam-setup))
+
+(global-set-key (kbd "C-c n i") 'org-roam-node-insert)
+(global-set-key (kbd "C-c n f") 'org-roam-node-find)
+(global-set-key (kbd "C-c n l") 'org-roam-buffer-toggle)
+
  
 ;;====================================
 ;; ELPY
