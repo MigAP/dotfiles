@@ -123,3 +123,6 @@ export VISUAL="emacsclient -c -a emacs"         # $VISUAL opens in GUI mode
 
 # acados configuration 
 export ACADOS_INSTALL_DIR="/home/migap/gitRepos/acados"
+
+# start seafile 
+#seafile-applet & 
