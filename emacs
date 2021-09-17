@@ -18,7 +18,7 @@
  '(org-agenda-files
    '("~/Seafile/thesis/administratif/inscriptions/2021_2022/rapport_avancement/rapport_avancement.org" "~/org/roam/20201015085701-dextair_v3_design_objectives.org" "~/Seafile/thesis/reports/unconstrainedOptiProblem/unconstrainedOptiProblem.org" "~/Nextcloud/orgRoam/20201008150915-mechanical_design_optimization_for_aerial_manipulators.org"))
  '(package-selected-packages
-   '(projectile undo-tree elfeed markdown-mode deft ess matlab-mode visual-fill-column monokai-pro-theme cdlatex elpy toc-org ivy-bibtex org-ref magit yasnippet-snippets org-roam linum-relative ivy auctex monokai-theme yasnippet key-chord evil use-package)))
+   '(treemacs-projectile projectile undo-tree elfeed markdown-mode deft ess matlab-mode visual-fill-column monokai-pro-theme cdlatex elpy toc-org ivy-bibtex org-ref magit yasnippet-snippets org-roam linum-relative ivy auctex monokai-theme yasnippet key-chord evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -286,6 +286,7 @@ A->B
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
 (setq ivy-count-format "(%d/%d) ")
+(setq ivy-use-selectable-prompt t) ; allows to select "bar" when "barricade" already exists 
 
 ;;====================================
 ;; IVY BIBTEX
@@ -309,24 +310,6 @@ A->B
 ;;====================================
 ;; ORG ROAM 
 ;;====================================
-;(use-package org-roam
-;      :ensure t
-;      :hook
-;      (after-init . org-roam-mode)
-;      :custom
-;      (org-roam-directory "~/org/roam/")
-;      :config
-;      (setq org-roam-index-file "~/org/roam/20200511193348-index.org")
-;      (setq org-roam-link-title-format "R:%s")
-;      :bind (:map org-roam-mode-map
-;              (("C-c n l" . org-roam)
-;               ("C-c n f" . org-roam-find-file)
-;               ("C-c n g" . org-roam-graph-show)
-;               ("C-c n j" . org-roam-jump-to-index)
-;               ("C-c n b" . org-roam-switch-to-buffer))
-;              :map org-mode-map
-;              (("C-c n i" . org-roam-insert))
-;              (("C-c n I" . org-roam-insert-immediate))))
 
 (use-package org-roam
   :ensure t
@@ -338,13 +321,13 @@ A->B
         (file-truename "/home/migap/org/roam/"))
   (setq org-roam-db-location
         (concat org-roam-directory "org-roam.db"))
-  (org-roam-setup))
+  (org-roam-setup)
+  :bind
+  ("C-c n i" . org-roam-node-insert)
+  ("C-c n f" . org-roam-node-find)
+  ("C-c n l" . org-roam-buffer-toggle)
+  )
 
-(global-set-key (kbd "C-c n i") 'org-roam-node-insert)
-(global-set-key (kbd "C-c n f") 'org-roam-node-find)
-(global-set-key (kbd "C-c n l") 'org-roam-buffer-toggle)
-
- 
 ;;====================================
 ;; ELPY
 ;;====================================
@@ -444,6 +427,7 @@ A->B
         "https://xkcd.com/atom.xml"
         "http://www.aaronsw.com/2002/feeds/pgessays.rss"
         "https://ambrevar.xyz/atom.xml"
+        "https://nullprogram.com/feed/"
         ))
 
 ;;====================================
