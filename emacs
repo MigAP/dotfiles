@@ -428,6 +428,7 @@ A->B
         "http://www.aaronsw.com/2002/feeds/pgessays.rss"
         "https://ambrevar.xyz/atom.xml"
         "https://nullprogram.com/feed/"
+	"https://bzg.fr/en/index.xml"
         ))
 
 ;;====================================
