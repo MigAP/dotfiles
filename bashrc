@@ -126,3 +126,6 @@ export ACADOS_INSTALL_DIR="/home/migap/gitRepos/acados"
 
 # start seafile 
 #seafile-applet & 
+
+# add custom scripts as commands 
+export PATH=$PATH:~/scripts
