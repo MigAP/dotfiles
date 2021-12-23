@@ -16,7 +16,7 @@
  '(custom-safe-themes
    '("d9646b131c4aa37f01f909fbdd5a9099389518eb68f25277ed19ba99adeb7279" "8b58ef2d23b6d164988a607ee153fd2fa35ee33efc394281b1028c2797ddeebb" "f3ab34b145c3b2a0f3a570ddff8fabb92dafc7679ac19444c31058ac305275e1" default))
  '(org-agenda-files
-   '("~/org/roam/20211111181331-agriculture.org" "~/Seafile/thesis/administratif/inscriptions/2021_2022/rapport_avancement/rapport_avancement.org" "~/org/roam/20201015085701-dextair_v3_design_objectives.org" "~/Seafile/thesis/reports/unconstrainedOptiProblem/unconstrainedOptiProblem.org" "~/Nextcloud/orgRoam/20201008150915-mechanical_design_optimization_for_aerial_manipulators.org"))
+   '("~/org/roam/20210922094850-dextair_mosaic_generator.org" "~/Seafile/thesis/administratif/inscriptions/2021_2022/rapport_avancement/rapport_avancement.org" "~/org/roam/20201015085701-dextair_v3_design_objectives.org" "~/Seafile/thesis/reports/unconstrainedOptiProblem/unconstrainedOptiProblem.org" "~/Nextcloud/orgRoam/20201008150915-mechanical_design_optimization_for_aerial_manipulators.org"))
  '(package-selected-packages
    '(treemacs-projectile projectile undo-tree elfeed markdown-mode deft ess matlab-mode visual-fill-column monokai-pro-theme cdlatex elpy toc-org ivy-bibtex org-ref magit yasnippet-snippets org-roam linum-relative ivy auctex monokai-theme yasnippet key-chord evil use-package)))
 (custom-set-faces
@@ -179,7 +179,7 @@ A->B
 ;; ORG REF
 ;;====================================
 ;;; org-ref
-(setq org-ref-default-bibliography '("/home/migap/Nextcloud/bibliography/allBiblio.bib"))
+(setq org-ref-default-bibliography '("/home/migap/org/bibliography.bib"))
 (setq org-ref-completion-library 'org-ref-ivy-cite)
 (require 'org-ref)
 (setq org-latex-prefer-user-labels t) ; to use my own references 
@@ -293,7 +293,7 @@ A->B
 ;;====================================
 ;; Ivy-bibtex : managing bibliography 
 (setq bibtex-completion-bibliography
-      '("/home/migap/Nextcloud/bibliography/allBiblio.bib"
+      '("/home/migap/org/bibliography.bib"
         ))
 (setq bibtex-completion-pdf-field "file")
 
