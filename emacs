@@ -38,9 +38,9 @@
 ;; To use all the symbols in the keyboard 
 (require 'iso-transl) 
 
-;; Font size 
-(set-face-attribute 'default nil :height 120)
-
+;; Font setup 
+;;(set-face-attribute 'default nil :height 120)
+(set-frame-font "Monospace 14" nil t)
 
 ; make ibuffer default
 (defalias 'list-buffers 'ibuffer) 
