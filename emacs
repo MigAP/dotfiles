@@ -422,3 +422,25 @@ A->B
 ;;====================================
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
+;;====================================
+;; ERC 
+;;====================================
+;; Set our nickname & real-name as constant variables
+(setq
+ erc-nick "migap"     ; Our IRC nick
+ erc-user-full-name "migap") ; Our /whois name
+
+;; Define a function to connect to a server
+(defun libera-server ()
+  (interactive)
+  (erc-tls :server "irc.libera.chat"
+       :port   "6697"))
+
+;; Or assign it to a keybinding
+;; This example is also using erc's TLS capabilities:
+;(global-set-key "\C-cen"
+;  (lambda ()
+;  (interactive)
+;  (erc-tls :server "server2.example.com"
+;           :port   "6697")))
