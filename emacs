@@ -6,28 +6,14 @@
 (eval-when-compile
   (require 'use-package))
 
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(monokai))
- '(custom-safe-themes
-   '("d9646b131c4aa37f01f909fbdd5a9099389518eb68f25277ed19ba99adeb7279" "8b58ef2d23b6d164988a607ee153fd2fa35ee33efc394281b1028c2797ddeebb" "f3ab34b145c3b2a0f3a570ddff8fabb92dafc7679ac19444c31058ac305275e1" default))
- '(org-agenda-files
-   '("~/org/roam/20210922094850-dextair_mosaic_generator.org" "~/Seafile/thesis/administratif/inscriptions/2021_2022/rapport_avancement/rapport_avancement.org" "~/org/roam/20201015085701-dextair_v3_design_objectives.org" "~/Seafile/thesis/reports/unconstrainedOptiProblem/unconstrainedOptiProblem.org" "~/Nextcloud/orgRoam/20201008150915-mechanical_design_optimization_for_aerial_manipulators.org"))
- '(package-selected-packages
-   '(treemacs-projectile projectile undo-tree elfeed markdown-mode deft ess matlab-mode visual-fill-column monokai-pro-theme cdlatex elpy toc-org ivy-bibtex org-ref magit yasnippet-snippets org-roam linum-relative ivy auctex monokai-theme yasnippet key-chord evil use-package)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 ;;====================================
 ;; EMACS BEHAVIOUR
 ;;====================================
+;; Separate custom file from configuration file
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 ;; Turn off bell 
 (setq ring-bell-function 'ignore)
 
