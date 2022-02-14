@@ -40,7 +40,7 @@
 
 ;; Font setup 
 ;;(set-face-attribute 'default nil :height 120)
-(set-frame-font "Monospace 14" nil t)
+(set-frame-font "Monospace 11" nil t)
 
 ; make ibuffer default
 (defalias 'list-buffers 'ibuffer) 
@@ -435,7 +435,7 @@ A->B
 (defun libera-server ()
   (interactive)
   (erc-tls :server "irc.libera.chat"
-       :port   "6697"))
+	   :port   "6697"))
 
 ;; Or assign it to a keybinding
 ;; This example is also using erc's TLS capabilities:
