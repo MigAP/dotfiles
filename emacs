@@ -50,6 +50,12 @@
 ; start the emacs server 
 (server-start) 
 
+; truncate long lines
+(set-default 'truncate-lines t)
+
+; Indentation style for CC Mode
+(setq c-default-style "k&r")
+
 ; load theme 
 ;(load-theme 'monokai-pro t)
 ;;====================================
