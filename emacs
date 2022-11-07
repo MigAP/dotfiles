@@ -57,7 +57,7 @@
 (setq c-default-style "k&r")
 
 ; load theme 
-;(load-theme 'monokai-pro t)
+(load-theme 'solarized-dark t)
 ;;====================================
 ;;ORG MODE 
 ;;====================================
@@ -235,7 +235,11 @@ A->B
 ;;====================================
 ;; LINUM RELATIVE
 ;;====================================
+;(require 'linum-relative)
 (setq linum-relative-current-symbol "") ; instead of 0, displays actual line number in current line 
+;(linum-relative-global-mode)
+(add-hook 'matlab-mode-hook 'linum-relative-mode)
+(add-hook 'c++-mode-hook 'linum-relative-mode)
 
 ;;====================================
 ;; YAsnippet
@@ -452,3 +456,10 @@ A->B
 ;  (interactive)
 ;  (erc-tls :server "server2.example.com"
 ;           :port   "6697")))
+
+;;====================================
+;; SLIME (lisp)
+;;====================================
+
+(load (expand-file-name "~/.quicklisp/slime-helper.el"))
+(setq inferior-lisp-program "sbcl")
