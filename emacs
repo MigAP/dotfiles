@@ -57,6 +57,7 @@
 (setq c-default-style "k&r")
 
 ; load theme 
+(setq x-underline-at-descent-line t) ; better underline position under X
 (load-theme 'solarized-dark t)
 ;;====================================
 ;;ORG MODE 
