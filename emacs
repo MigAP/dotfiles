@@ -464,3 +464,5 @@ A->B
 
 (load (expand-file-name "~/.quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "sbcl")
+(load "/home/migap/.quicklisp/clhs-use-local.el" t) ; CLHS configuration
+; (Location: /home/migap/.quicklisp/dists/quicklisp/software/clhs-0.6.3/README) README location for useful info
