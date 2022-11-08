@@ -191,6 +191,13 @@ A->B
 (setq org-ref-open-pdf-function 'my/org-ref-open-pdf-at-point)
 
 ;;====================================
+;;ORG OX-HUGO
+;;====================================
+
+(use-package ox-hugo
+  :after ox)
+
+;;====================================
 ;; MAGIT
 ;;====================================
 (use-package magit
