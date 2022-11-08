@@ -209,6 +209,7 @@ A->B
 ;;EVIL 
 ;;====================================
 (use-package evil
+  :init (setq evil-want-C-i-jump nil) ; restore TAB to org-cycle
   :ensure t
   :config
   (evil-mode 1)
