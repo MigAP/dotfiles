@@ -45,11 +45,14 @@
 ; make ibuffer default
 (defalias 'list-buffers 'ibuffer) 
 
+; disable parent mode
+(setq show-paren-mode nil)
+
 ; start the emacs server 
 (server-start) 
 
 ; load theme 
-;(load-theme 'monokai-pro t)
+(load-theme 'solarized-dark)
 ;;====================================
 ;;ORG MODE 
 ;;====================================
