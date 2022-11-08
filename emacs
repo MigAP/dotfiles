@@ -452,3 +452,15 @@ A->B
 ;  (interactive)
 ;  (erc-tls :server "server2.example.com"
 ;           :port   "6697")))
+
+;;====================================
+;; SLIME
+;;====================================
+
+(load (expand-file-name "~/.quicklisp/slime-helper.el"))
+(setq inferior-lisp-program "sbcl")
+
+;;====================================
+;; UNDO-TREE
+;;====================================
+(setq undo-tree-auto-save-history nil)
