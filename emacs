@@ -169,7 +169,7 @@ A->B
 (setq org-ref-completion-library 'org-ref-ivy-cite)
 (require 'org-ref)
 (setq org-latex-prefer-user-labels t) ; to use my own references 
-
+(define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link) ; key-binding for inserting reference
 ; For LaTeX export settings 
 ; add shell escape for minted latex package
 (setq org-latex-pdf-process
