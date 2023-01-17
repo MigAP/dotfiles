@@ -42,7 +42,7 @@
 
 ;; Font setup 
 ;;(set-face-attribute 'default nil :height 120)
-(set-frame-font "Monospace 11" nil t)
+(set-frame-font "Monospace 12" nil t)
 
 ; make ibuffer default
 (defalias 'list-buffers 'ibuffer) 
@@ -59,6 +59,9 @@
 ; load theme 
 (setq x-underline-at-descent-line t) ; better underline position under X
 (load-theme 'solarized-dark t)
+
+;; highlight matching paren
+(show-paren-mode 1)
 ;;====================================
 ;;ORG MODE 
 ;;====================================
