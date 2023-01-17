@@ -78,6 +78,9 @@
  'org-babel-load-languages
  '((python . t)
    (shell . t)
+   (maxima . t)
+   (scheme . t) 
+   (lisp . t)
    ))
 
 ;; Do not ask for confirmation all the time!!
@@ -469,3 +472,16 @@ A->B
 (setq inferior-lisp-program "sbcl")
 (load "/home/migap/.quicklisp/clhs-use-local.el" t) ; CLHS configuration
 ; (Location: /home/migap/.quicklisp/dists/quicklisp/software/clhs-0.6.3/README) README location for useful info
+
+;;====================================
+;; MAXIMA 
+;;====================================
+(use-package maxima
+  :init
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0)
+	maxima-display-maxima-buffer nil)
+  (add-to-list 'auto-mode-alist
+	       (cons "\\.mac\\'" 'maxima-mode))
+  (add-to-list 'interpreter-mode-alist
+	       (cons "maxima" 'maxima-mode)))
+
