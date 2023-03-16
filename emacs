@@ -487,3 +487,42 @@ A->B
   (add-to-list 'interpreter-mode-alist
 	       (cons "maxima" 'maxima-mode)))
 
+;;====================================
+;; PDF-TOOLS
+;;====================================
+
+(defun update-other-buffer ()
+  (interactive)
+  (other-window 1)
+  (revert-buffer nil t)
+  (other-window -1))
+
+(defun latex-compile-and-update-other-buffer ()
+  "Has as a premise that it's run from a latex-mode buffer and the
+   other buffer already has the PDF open"
+  (interactive)
+  (save-buffer)
+  (shell-command (concat "pdflatex " (buffer-file-name)))
+  (switch-to-buffer (other-buffer))
+  (kill-buffer)
+  (update-other-buffer))
+
+(defun org-compile-beamer-and-update-other-buffer ()
+  "Has as a premise that it's run from an org-mode buffer and the
+   other buffer already has the PDF open"
+  (interactive)
+  (org-beamer-export-to-pdf)
+  (update-other-buffer))
+
+(defun org-compile-latex-and-update-other-buffer ()
+  "Has as a premise that it's run from an org-mode buffer and the
+   other buffer already has the PDF open"
+  (interactive)
+  (org-latex-export-to-pdf)
+  (update-other-buffer))
+
+(eval-after-load 'latex-mode
+  '(define-key latex-mode-map (kbd "C-c r") 'latex-compile-and-update-other-buffer))
+
+(define-key org-mode-map (kbd "C-c lr") 'org-compile-latex-and-update-other-buffer)
+(define-key org-mode-map (kbd "C-c br") 'org-compile-beamer-and-update-other-buffer)
