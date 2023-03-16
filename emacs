@@ -275,6 +275,13 @@ A->B
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
   (add-hook 'LaTeX-mode-hook 'linum-relative-mode); with AUCTeX LaTeX mode
   (setq reftex-plug-into-AUCTeX t) ; makes reftex colaborate with AUCTex
+  ;; Use pdf-tools to open PDF files
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+	TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
+	TeX-source-correlate-start-server t)
+  ;; Update PDF buffers after successful LaTeX runs
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer)
 
   ;; ##### Enable synctex correlation. From Okular just press
   ;; ##### Shift + Left click to go to the good line.
@@ -282,9 +289,12 @@ A->B
         TeX-source-correlate-start-server t)
   )
 
+;; (eval-after-load "latex"
+;;   '(define-key latex-mode-map  (kbd "C-c C-g") 'pdf-sync-forward-search))
+
 ;; ### Set Okular as the default PDF viewer.
-(eval-after-load "tex"
-  '(setcar (cdr (assoc 'output-pdf TeX-view-program-selection)) "Okular"))
+;; (eval-after-load "tex"
+;;   '(setcar (cdr (assoc 'output-pdf TeX-view-program-selection)) "Okular"))
 
 ;;====================================
 ;; IVY
@@ -490,6 +500,16 @@ A->B
 ;;====================================
 ;; PDF-TOOLS
 ;;====================================
+(use-package pdf-tools
+   :pin manual
+   :config
+   (pdf-tools-install)
+   (setq-default pdf-view-display-size 'fit-width)
+   (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward)
+   (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
+   :custom
+   (pdf-annot-activate-created-annotations t "automatically annotate highlights"))
+
 
 (defun update-other-buffer ()
   (interactive)
