@@ -244,6 +244,8 @@ A->B
   (evil-set-initial-state 'deft-mode 'emacs); disbable evil mode when in deft  
   (evil-set-initial-state 'elfeed-search-mode 'emacs); disbable evil mode when in elfeed  
   (evil-set-initial-state 'elfeed-show-mode 'emacs); disbable evil mode when in elfeed  
+  (evil-set-initial-state 'eww-mode 'emacs); disbable evil mode when in elfeed  
+  (evil-set-initial-state 'eww-buffers-mode 'emacs); disbable evil mode when in elfeed  
   (evil-set-undo-system 'undo-tree)
   (global-undo-tree-mode 1)
   )
