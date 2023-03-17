@@ -65,22 +65,22 @@
 ;; auto close bracket insertion. New in emacs 24
 (electric-pair-mode 0)
 
-;; ; emacs transparency 
-;; (set-frame-parameter (selected-frame) 'alpha '(90 . 50))
-;; (add-to-list 'default-frame-alist '(alpha . (90 . 50)))
+; emacs transparency 
+(set-frame-parameter (selected-frame) 'alpha '(100 . 100))
+(add-to-list 'default-frame-alist '(alpha . (100 . 100)))
 
-;; (defun toggle-transparency ()
-;;    (interactive)
-;;    (let ((alpha (frame-parameter nil 'alpha)))
-;;      (set-frame-parameter
-;;       nil 'alpha
-;;       (if (eql (cond ((numberp alpha) alpha)
-;;                      ((numberp (cdr alpha)) (cdr alpha))
-;;                      ;; Also handle undocumented (<active> <inactive>) form.
-;;                      ((numberp (cadr alpha)) (cadr alpha)))
-;;                100)
-;;           '(90 . 50) '(100 . 100)))))
-;(global-set-key (kbd "C-c t") 'toggle-transparency)
+(defun toggle-transparency ()
+   (interactive)
+   (let ((alpha (frame-parameter nil 'alpha)))
+     (set-frame-parameter
+      nil 'alpha
+      (if (eql (cond ((numberp alpha) alpha)
+                     ((numberp (cdr alpha)) (cdr alpha))
+                     ;; Also handle undocumented (<active> <inactive>) form.
+                     ((numberp (cadr alpha)) (cadr alpha)))
+               100)
+          '(95 . 50) '(100 . 100)))))
+(global-set-key (kbd "C-c t") 'toggle-transparency)
 
 ;;====================================
 ;;ORG MODE 
