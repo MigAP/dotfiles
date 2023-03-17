@@ -307,8 +307,8 @@ A->B
         TeX-source-correlate-start-server t)
   )
 
-;; (eval-after-load "latex"
-;;   '(define-key latex-mode-map  (kbd "C-c C-g") 'pdf-sync-forward-search))
+(eval-after-load "latex"
+  '(define-key LaTeX-mode-map  (kbd "C-c C-g") 'pdf-sync-forward-search))
 
 ;; ### Set Okular as the default PDF viewer.
 ;; (eval-after-load "tex"
