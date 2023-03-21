@@ -82,6 +82,15 @@
           '(95 . 50) '(100 . 100)))))
 (global-set-key (kbd "C-c t") 'toggle-transparency)
 
+;; pdf-tools remap vim navigation keybindings
+(add-hook 'pdf-view-mode-hook
+	  (lambda ()
+	    (local-set-key (kbd "j") #'pdf-view-next-line-or-next-page)
+	    (local-set-key (kbd "k") #'pdf-view-previous-line-or-previous-page)
+	    (local-set-key (kbd "l") #'image-forward-hscroll)
+	    (local-set-key (kbd "h") #'image-backward-hscroll)
+	    (local-set-key (kbd "J") #'pdf-view-next-page)
+	    (local-set-key (kbd "K") #'pdf-view-previous-page)))
 ;;====================================
 ;;ORG MODE 
 ;;====================================
