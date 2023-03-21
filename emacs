@@ -229,7 +229,7 @@ A->B
          (key (car results))
 	 (pdf-file (car (bibtex-completion-find-pdf key))))
     (if (file-exists-p pdf-file)
-	(org-open-file pdf-file)
+	(org-open-file pdf-file t) ; "t" to open the pdf inside emacs
       (message "No PDF found for %s" key))))
 
 (setq org-ref-open-pdf-function 'my/org-ref-open-pdf-at-point)
