@@ -91,6 +91,10 @@
 	    (local-set-key (kbd "h") #'image-backward-hscroll)
 	    (local-set-key (kbd "J") #'pdf-view-next-page)
 	    (local-set-key (kbd "K") #'pdf-view-previous-page)))
+
+; eshell configuration 
+(defun eshell/e (&rest args)
+  (apply #'find-file args))
 ;;====================================
 ;;ORG MODE 
 ;;====================================
