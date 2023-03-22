@@ -579,3 +579,56 @@ A->B
 
 (define-key org-mode-map (kbd "C-c lr") 'org-compile-latex-and-update-other-buffer)
 (define-key org-mode-map (kbd "C-c br") 'org-compile-beamer-and-update-other-buffer)
+
+;;====================================
+;; NOTMUCH
+;;====================================
+(autoload 'notmuch "notmuch" "notmuch mail" t)
+(setq notmuch-search-oldest-first nil)
+(setq message-kill-buffer-on-exit t)
+
+;;====================================
+;; MU4E
+;;====================================
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e/")
+(require 'mu4e)
+;; these are actually the defaults
+(setq
+ mu4e-maildir       "~/email/etu-unistra/"   ;; top-level Maildir
+ mu4e-sent-folder   "/Sent"       ;; folder for sent messages
+ mu4e-drafts-folder "/Drafts"     ;; unfinished messages
+ mu4e-trash-folder  "/Trash"      ;; trashed messages
+ mu4e-refile-folder "/Archives")   ;; saved messages
+
+(setq
+ mu4e-get-mail-command "mbsync -a"   ;; or fetchmail, or ...
+ mu4e-update-interval 300)             ;; update every 5 minutes
+
+
+;; don't keep message compose buffers around after sending:
+(setq message-kill-buffer-on-exit t)
+
+;; send function:
+(setq send-mail-function 'sendmail-send-it
+      message-send-mail-function 'sendmail-send-it)
+
+;; send program:
+;; this is exeranal. remember we installed it before.
+(setq sendmail-program (executable-find "msmtp"))
+
+;; select the right sender email from the context.
+(setq message-sendmail-envelope-from 'header)
+
+
+;; (setq sendmail-program "/usr/bin/msmtp"
+;;       send-mail-function 'smtpmail-send-it
+;;       message-sendmail-f-is-evil t
+;;       message-sendmail-extra-arguments '("--read-envelope-from")
+;;       message-send-mail-function 'message-send-mail-with-sendmail)
+
+
+;; (setq send-mail-function 'sendmail-send-it
+;;       sendmail-program "/usr/bin/msmtp"
+;;       mail-specify-envelope-from t
+;;       message-sendmail-envelope-from 'header
+;;       mail-envelope-from 'header)
