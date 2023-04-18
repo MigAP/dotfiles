@@ -51,8 +51,22 @@
 ; start the emacs server 
 (server-start) 
 
+; Indentation style for CC Mode
+(setq c-default-style "k&r")
+
 ; load theme 
 (load-theme 'solarized-dark)
+
+;; pdf-tools remap vim navigation keybindings
+(add-hook 'pdf-view-mode-hook
+	  (lambda ()
+	    (local-set-key (kbd "j") #'pdf-view-next-line-or-next-page)
+	    (local-set-key (kbd "k") #'pdf-view-previous-line-or-previous-page)
+	    (local-set-key (kbd "l") #'image-forward-hscroll)
+	    (local-set-key (kbd "h") #'image-backward-hscroll)
+	    (local-set-key (kbd "J") #'pdf-view-next-page)
+	    (local-set-key (kbd "K") #'pdf-view-previous-page)))
+
 ;;====================================
 ;;ORG MODE 
 ;;====================================
@@ -265,16 +279,25 @@ A->B
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
   (add-hook 'LaTeX-mode-hook 'linum-relative-mode); with AUCTeX LaTeX mode
   (setq reftex-plug-into-AUCTeX t) ; makes reftex colaborate with AUCTex
-
+  ;; Use pdf-tools to open PDF files
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+	TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
+	TeX-source-correlate-start-server t)
+  ;; Update PDF buffers after successful LaTeX runs
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer)
   ;; ##### Enable synctex correlation. From Okular just press
   ;; ##### Shift + Left click to go to the good line.
   (setq TeX-source-correlate-mode t
         TeX-source-correlate-start-server t)
   )
 
-;; ### Set Okular as the default PDF viewer.
-(eval-after-load "tex"
-  '(setcar (cdr (assoc 'output-pdf TeX-view-program-selection)) "Okular"))
+(eval-after-load "latex"
+  '(define-key LaTeX-mode-map  (kbd "C-c C-g") 'pdf-sync-forward-search))
+
+;; ;; ### Set Okular as the default PDF viewer.
+;; (eval-after-load "tex"
+;;   '(setcar (cdr (assoc 'output-pdf TeX-view-program-selection)) "Okular"))
 
 ;;====================================
 ;; IVY
