@@ -9,6 +9,12 @@
   (require 'use-package))
 
 ;;====================================
+;; CUSTOM ELISP FUNCTIONS
+;;====================================
+
+(load-file "./my-elisp.el")
+
+;;====================================
 ;; EMACS BEHAVIOUR
 ;;====================================
 ;; Separate custom file from configuration file
