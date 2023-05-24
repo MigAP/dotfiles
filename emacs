@@ -653,10 +653,10 @@ A->B
   (require 'citre-config)
   ;; Bind your frequently used commands.  Alternatively, you can define them
   ;; in `citre-mode-map' so you can only use them when `citre-mode' is enabled.
-  (global-set-key (kbd "C-x c j") 'citre-jump)
-  (global-set-key (kbd "C-x c J") 'citre-jump-back)
-  (global-set-key (kbd "C-x c p") 'citre-ace-peek)
-  (global-set-key (kbd "C-x c u") 'citre-update-this-tags-file)
+  (global-set-key (kbd "C-c t j") 'citre-jump)
+  (global-set-key (kbd "C-c t J") 'citre-jump-back)
+  (global-set-key (kbd "C-c t p") 'citre-ace-peek)
+  (global-set-key (kbd "C-c t u") 'citre-update-this-tags-file)
   :config
   (setq
    ;; Set these if readtags/ctags is not in your PATH.
