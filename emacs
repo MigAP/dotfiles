@@ -12,7 +12,7 @@
 ;; CUSTOM ELISP FUNCTIONS
 ;;====================================
 
-(load-file "./my-elisp.el")
+(load-file "~/dotfiles/my-elisp.el")
 
 ;;====================================
 ;; EMACS BEHAVIOUR
