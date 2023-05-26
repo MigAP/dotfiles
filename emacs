@@ -260,6 +260,8 @@ A->B
   :config
   (evil-mode 1)
   (evil-set-initial-state 'dired-mode 'emacs); disbable evil mode when dired 
+  (evil-set-initial-state 'image-dired-thumbnail-mode 'emacs); disbable evil mode when image-dired 
+  (evil-set-initial-state 'image-mode 'emacs); disbable evil mode when in Image mode 
   (evil-set-initial-state 'deft-mode 'emacs); disbable evil mode when in deft  
   (evil-set-initial-state 'elfeed-search-mode 'emacs); disbable evil mode when in elfeed  
   (evil-set-initial-state 'elfeed-show-mode 'emacs); disbable evil mode when in elfeed  
