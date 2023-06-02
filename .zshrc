@@ -68,8 +68,18 @@ bindkey '^e' edit-command-line
 
 # FZF
 source /usr/share/doc/fzf/examples/key-bindings.zsh
-
 source /usr/share/doc/fzf/examples/completion.zsh
+
+# emacs M-x shell
+if [[ "dumb" == $TERM ]] ; then
+  alias less='cat'
+  alias more='cat'
+  export PAGER=cat
+  export TERM=xterm-256color
+  unsetopt zle
+fi
+# Avoid Tram from hanging
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
 
 # End of lines configured by zsh-newuser-install
 source /home/migap/gitRepos/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
