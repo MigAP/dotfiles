@@ -86,3 +86,7 @@ inoremap kj <Esc>
 
 "Spell Lang 
 nnoremap ,dic :setlocal spell! spelllang=fr<CR>
+
+"Change cursor between modes
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
