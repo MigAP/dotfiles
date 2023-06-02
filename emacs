@@ -86,7 +86,7 @@
                      ((numberp (cadr alpha)) (cadr alpha)))
                100)
           '(95 . 50) '(100 . 100)))))
-(global-set-key (kbd "C-c t") 'toggle-transparency)
+(global-set-key (kbd "C-c C-t") 'toggle-transparency)
 
 ;; pdf-tools remap vim navigation keybindings
 (add-hook 'pdf-view-mode-hook
