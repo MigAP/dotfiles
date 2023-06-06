@@ -695,3 +695,16 @@ A->B
 (global-set-key (kbd "C-x w") 'elfeed)
 
 (load-file "~/dotfiles/elfeed-feeds.el")
+
+;;====================================
+;; ACE-WINDOW
+;;====================================
+; Easily switch between frames and windows
+(use-package ace-window
+  :ensure t
+  :bind
+  ("M-o" . ace-window)
+  :config
+  (setq aw-keys '(?q ?s ?d ?f ?g ?h ?j ?k ?l))
+  (setq aw-dispatch-always t)
+)
