@@ -244,18 +244,19 @@ A->B
   (evil-set-initial-state 'elfeed-show-mode 'emacs); disbable evil mode when in elfeed  
   (evil-set-undo-system 'undo-tree)
   (global-undo-tree-mode 1)
+  (define-key evil-insert-state-map "kj" 'evil-normal-state)
   )
 
 ;;====================================
 ;; KEY-CHORD 
 ;;====================================
 ;;Exit insert mode by pressing k and then j quickly
-(use-package key-chord
-  :ensure t 
-  :config
-  (setq key-chord-two-keys-delay 0.5)
-  (key-chord-define evil-insert-state-map "kj" 'evil-normal-state) 
-  (key-chord-mode 1))
+;; (use-package key-chord
+;;   :ensure t 
+;;   :config
+;;   (setq key-chord-two-keys-delay 0.05)
+;;   (key-chord-define evil-insert-state-map "kj" 'evil-normal-state) 
+;;   (key-chord-mode 1))
 
 ;;====================================
 ;; LINUM RELATIVE
