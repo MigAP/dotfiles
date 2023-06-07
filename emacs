@@ -223,6 +223,8 @@ A->B
 (setq org-ref-completion-library 'org-ref-ivy-cite)
 (require 'org-ref)
 (setq org-latex-prefer-user-labels t) ; to use my own references 
+(setq org-ref-show-citation-on-enter nil)
+
 
 ; For LaTeX export settings 
 ; add shell escape for minted latex package
