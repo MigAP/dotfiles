@@ -68,6 +68,14 @@
 	    (local-set-key (kbd "K") #'pdf-view-previous-page)))
 
 ;;====================================
+;;DIRED
+;;====================================
+;; (define-key dired-mode-map (kbd "j") 'dired-next-line)
+;; (define-key dired-mode-map (kbd "k") 'dired-previous-line)
+;; (define-key dired-mode-map (kbd "h") 'dired-up-directory)
+;; (define-key dired-mode-map (kbd "l") 'dired-find-file)
+
+;;====================================
 ;;ORG MODE 
 ;;====================================
 (require 'org)
@@ -408,8 +416,8 @@ A->B
 
 ;; The personal dictionary file has to exist, otherwise hunspell will
 ;; silently not use it.
-(unless (file-exists-p ispell-personal-dictionary)
-  (write-region "" nil ispell-personal-dictionary nil 0))
+;(unless (file-exists-p ispell-personal-dictionary)
+;  (write-region "" nil ispell-personal-dictionary nil 0))
 
 ;;====================================
 ;; Deft
@@ -541,3 +549,57 @@ A->B
 
 (define-key org-mode-map (kbd "C-c lr") 'org-compile-latex-and-update-other-buffer)
 (define-key org-mode-map (kbd "C-c br") 'org-compile-beamer-and-update-other-buffer)
+
+;;====================================
+;; CITRE
+;;====================================
+
+(require 'citre)
+(require 'citre-config)
+
+(use-package citre
+  :defer t
+  :init
+  ;; This is needed in `:init' block for lazy load to work.
+  (require 'citre-config)
+  ;; Bind your frequently used commands.  Alternatively, you can define them
+  ;; in `citre-mode-map' so you can only use them when `citre-mode' is enabled.
+  (global-set-key (kbd "C-c t j") 'citre-jump)
+  (global-set-key (kbd "C-c t J") 'citre-jump-back)
+  (global-set-key (kbd "C-c t p") 'citre-ace-peek)
+  (global-set-key (kbd "C-c t u") 'citre-update-this-tags-file)
+  :config
+  (setq
+   ;; Set these if readtags/ctags is not in your PATH.
+   ;; citre-readtags-program "/path/to/readtags"
+   ;; citre-ctags-program "/path/to/ctags"
+
+   ;; Set these if gtags/global is not in your PATH (and you want to use the
+   ;; global backend)
+   ;; citre-gtags-program "/path/to/gtags"
+   ;; citre-global-program "/path/to/global"
+
+   ;; Set this if you use project management plugin like projectile.  It's
+   ;; used for things like displaying paths relatively, see its docstring.
+   citre-project-root-function #'projectile-project-root
+
+   ;; Set this if you want to always use one location to create a tags file.
+   ;; citre-default-create-tags-file-location 'global-cache
+
+   ;; See the "Create tags file" section above to know these options
+   ;; citre-use-project-root-when-creating-tags t
+   ;; citre-prompt-language-for-ctags-command t
+
+   ;; By default, when you open any file, and a tags file can be found for it,
+   ;; `citre-mode' is automatically enabled.  If you only want this to work for
+   ;; certain modes (like `prog-mode'), set it like this.
+   ;; citre-auto-enable-citre-mode-modes '(prog-mode)
+   ))
+
+;;====================================
+;; ELFEED
+;;====================================
+
+(global-set-key (kbd "C-x w") 'elfeed)
+
+(load-file "~/dotfiles/elfeed-feeds.el")
