@@ -361,44 +361,6 @@
   )
 
 ;;====================================
-;; ELPY
-;;====================================
-
-(use-package elpy
-  :ensure t
-  :defer t
-  :init
-  (advice-add 'python-mode :before 'elpy-enable)
-  :config
-  (setq python-shell-interpreter "ipython3"
-      python-shell-interpreter-args "-i --simple-prompt"))
-
-(defun company-yasnippet-or-completion ()
-  "Solve company yasnippet conflicts."
-  (interactive)
-  (let ((yas-fallback-behavior
-         (apply 'company-complete-common nil)))
-    (yas-expand)))
-
-(add-hook 'company-mode-hook
-          (lambda ()
-            (substitute-key-definition
-             'company-complete-common
-             'company-yasnippet-or-completion
-             company-active-map)))
-
-
-;;====================================
-;; visual-fill-column  
-;;====================================
-; wrap lines when using visual-line-mode (does not work)
-(add-hook 'visual-fill-column-mode-hook 'visual-line-mode)
-; column at which the text is wrapepd 
-(setq visual-fill-column-width 100) 
-; center the text 
-(setq visual-fill-column-center-text nil)
-
-;;====================================
 ;; Ispell and hunspell config
 ;;====================================
 
@@ -422,19 +384,6 @@
 ;; silently not use it.
 ;(unless (file-exists-p ispell-personal-dictionary)
 ;  (write-region "" nil ispell-personal-dictionary nil 0))
-
-;;====================================
-;; Deft
-;;====================================
-(use-package deft
-  :after org
-  :bind
-  ("C-c n d" . deft)
-  :custom
-  (deft-recursive t)
-  (deft-use-filter-string-for-filename t)
-  (deft-default-extension "org")
-  (deft-directory "~/org/"))
 
 ;;====================================
 ;; Markdown mode
