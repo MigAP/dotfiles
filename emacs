@@ -48,7 +48,7 @@
 (defalias 'list-buffers 'ibuffer) 
 
 ; disable parent mode
-(setq show-paren-mode nil)
+(setq show-paren-mode t)
 
 ; start the emacs server 
 (server-start) 
