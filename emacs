@@ -115,67 +115,68 @@
 
 ; enable visual line mode by default in org files
 (add-hook 'org-mode-hook 'turn-on-visual-line-mode) 
+
 ;;====================================
 ;; MOOC Reproducible Research Templates
 ;;====================================
-(require 'cl)
-(setq rrmooc/new-org-templates (version<= "9.2" (org-version)))
-(when  rrmooc/new-org-templates
-  (require 'org-tempo))
-(require 'subr-x)
-(defun rrmooc/add-org-template (old-style-template)
-  (add-to-list 'org-structure-template-alist
-	       (if rrmooc/new-org-templates
-		   (cons
-		    (first old-style-template)
-		    (string-trim-right (substring (second old-style-template) 8 -9)))
-		 old-style-template)))
+;; (require 'cl)
+;; (setq rrmooc/new-org-templates (version<= "9.2" (org-version)))
+;; (when  rrmooc/new-org-templates
+;;   (require 'org-tempo))
+;; (require 'subr-x)
+;; (defun rrmooc/add-org-template (old-style-template)
+;;   (add-to-list 'org-structure-template-alist
+;; 	       (if rrmooc/new-org-templates
+;; 		   (cons
+;; 		    (first old-style-template)
+;; 		    (string-trim-right (substring (second old-style-template) 8 -9)))
+;; 		 old-style-template)))
 
-(unless rrmooc/new-org-templates
-  ;; this template is predefined in the new templating system
-  (rrmooc/add-org-template
-   '("s" "#+begin_src ?\n\n#+end_src" "<src lang=\"?\">\n\n</src>")))
+;; (unless rrmooc/new-org-templates
+;;   ;; this template is predefined in the new templating system
+;;   (rrmooc/add-org-template
+;;    '("s" "#+begin_src ?\n\n#+end_src" "<src lang=\"?\">\n\n</src>")))
 
-(rrmooc/add-org-template
- '("m" "#+begin_src emacs-lisp\n\n#+end_src" "<src lang=\"emacs-lisp\">\n\n</src>"))
+;; (rrmooc/add-org-template
+;;  '("m" "#+begin_src emacs-lisp\n\n#+end_src" "<src lang=\"emacs-lisp\">\n\n</src>"))
 
-(rrmooc/add-org-template
- '("r" "#+begin_src R :results output :session *R* :exports both\n\n#+end_src" "<src lang=\"R\">\n\n</src>"))
+;; (rrmooc/add-org-template
+;;  '("r" "#+begin_src R :results output :session *R* :exports both\n\n#+end_src" "<src lang=\"R\">\n\n</src>"))
 
-(rrmooc/add-org-template
- '("R" "#+begin_src R :results output graphics :file (org-babel-temp-file \"figure\" \".png\") :exports both :width 600 :height 400 :session *R* \n\n#+end_src" "<src lang=\"R\">\n\n</src>"))
+;; (rrmooc/add-org-template
+;;  '("R" "#+begin_src R :results output graphics :file (org-babel-temp-file \"figure\" \".png\") :exports both :width 600 :height 400 :session *R* \n\n#+end_src" "<src lang=\"R\">\n\n</src>"))
 
-(rrmooc/add-org-template
- '("RR" "#+begin_src R :results output graphics :file  (org-babel-temp-file (concat (file-name-directory (or load-file-name buffer-file-name)) \"figure-\") \".png\") :exports both :width 600 :height 400 :session *R* \n\n#+end_src" "<src lang=\"R\">\n\n</src>"))
+;; (rrmooc/add-org-template
+;;  '("RR" "#+begin_src R :results output graphics :file  (org-babel-temp-file (concat (file-name-directory (or load-file-name buffer-file-name)) \"figure-\") \".png\") :exports both :width 600 :height 400 :session *R* \n\n#+end_src" "<src lang=\"R\">\n\n</src>"))
 
-(rrmooc/add-org-template
- '("p" "#+begin_src python :results output :exports both\n\n#+end_src" "<src lang=\"python\">\n\n</src>"))
+;; (rrmooc/add-org-template
+;;  '("p" "#+begin_src python :results output :exports both\n\n#+end_src" "<src lang=\"python\">\n\n</src>"))
 
-(rrmooc/add-org-template
- '("P" "#+begin_src python :results output :session :exports both\n\n#+end_src" "<src lang=\"python\">\n\n</src>"))
+;; (rrmooc/add-org-template
+;;  '("P" "#+begin_src python :results output :session :exports both\n\n#+end_src" "<src lang=\"python\">\n\n</src>"))
 
-(rrmooc/add-org-template
- '("PP" "#+begin_src python :results file :session :var matplot_lib_filename=(org-babel-temp-file \"figure\" \".png\") :exports both\nimport matplotlib.pyplot as plt\n\nimport numpy\nx=numpy.linspace(-15,15)\nplt.figure(figsize=(10,5))\nplt.plot(x,numpy.cos(x)/x)\nplt.tight_layout()\n\nplt.savefig(matplot_lib_filename)\nmatplot_lib_filename\n#+end_src" "<src lang=\"python\">\n\n</src>"))
+;; (rrmooc/add-org-template
+;;  '("PP" "#+begin_src python :results file :session :var matplot_lib_filename=(org-babel-temp-file \"figure\" \".png\") :exports both\nimport matplotlib.pyplot as plt\n\nimport numpy\nx=numpy.linspace(-15,15)\nplt.figure(figsize=(10,5))\nplt.plot(x,numpy.cos(x)/x)\nplt.tight_layout()\n\nplt.savefig(matplot_lib_filename)\nmatplot_lib_filename\n#+end_src" "<src lang=\"python\">\n\n</src>"))
 
-(if (memq system-type '(windows-nt ms-dos))
-    ;; Non-session shell execution does not seem to work under Windows, so we use
-    ;; a named session just like for B.
-    (rrmooc/add-org-template
-     '("b" "#+begin_src shell :session session :results output :exports both\n\n#+end_src" "<src lang=\"sh\">\n\n</src>"))
-  (rrmooc/add-org-template
-   '("b" "#+begin_src shell :results output :exports both\n\n#+end_src" "<src lang=\"sh\">\n\n</src>")))
+;; (if (memq system-type '(windows-nt ms-dos))
+;;     ;; Non-session shell execution does not seem to work under Windows, so we use
+;;     ;; a named session just like for B.
+;;     (rrmooc/add-org-template
+;;      '("b" "#+begin_src shell :session session :results output :exports both\n\n#+end_src" "<src lang=\"sh\">\n\n</src>"))
+;;   (rrmooc/add-org-template
+;;    '("b" "#+begin_src shell :results output :exports both\n\n#+end_src" "<src lang=\"sh\">\n\n</src>")))
 
-(rrmooc/add-org-template
- '("B" "#+begin_src shell :session *shell* :results output :exports both \n\n#+end_src" "<src lang=\"sh\">\n\n</src>"))
+;; (rrmooc/add-org-template
+;;  '("B" "#+begin_src shell :session *shell* :results output :exports both \n\n#+end_src" "<src lang=\"sh\">\n\n</src>"))
 
-(rrmooc/add-org-template
- '("g" "#+begin_src dot :results output graphics :file \"/tmp/graph.pdf\" :exports both
-digraph G {
-node [color=black,fillcolor=white,shape=rectangle,style=filled,fontname=\"Helvetica\"];
-A[label=\"A\"]
-B[label=\"B\"]
-A->B
-}\n#+end_src" "<src lang=\"dot\">\n\n</src>"))
+;; (rrmooc/add-org-template
+;;  '("g" "#+begin_src dot :results output graphics :file \"/tmp/graph.pdf\" :exports both
+;; digraph G {
+;; node [color=black,fillcolor=white,shape=rectangle,style=filled,fontname=\"Helvetica\"];
+;; A[label=\"A\"]
+;; B[label=\"B\"]
+;; A->B
+;; }\n#+end_src" "<src lang=\"dot\">\n\n</src>"))
 
 ;;====================================
 ;;ORG CAPTURE 
