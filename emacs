@@ -222,8 +222,8 @@
 ;;ORG OX-HUGO
 ;;====================================
 
-(use-package ox-hugo
-  :after ox)
+;; (use-package ox-hugo
+;;   :after ox)
 
 ;;====================================
 ;; MAGIT
@@ -247,19 +247,34 @@
   (evil-set-initial-state 'elfeed-show-mode 'emacs); disbable evil mode when in elfeed  
   (evil-set-undo-system 'undo-tree)
   (global-undo-tree-mode 1)
-  (define-key evil-insert-state-map "kj" 'evil-normal-state)
   )
+
+;;====================================
+;; EVIL-ESCAPE 
+;;====================================
+(use-package evil-escape
+  :ensure t
+  :config
+  (evil-escape-mode)
+  (setq-default evil-escape-key-sequence "kj")
+  )
+
 
 ;;====================================
 ;; KEY-CHORD 
 ;;====================================
-;;Exit insert mode by pressing k and then j quickly
+; Exit insert mode by pressing k and then j quickly
 ;; (use-package key-chord
 ;;   :ensure t 
 ;;   :config
-;;   (setq key-chord-two-keys-delay 0.05)
-;;   (key-chord-define evil-insert-state-map "kj" 'evil-normal-state) 
-;;   (key-chord-mode 1))
+;;   (key-chord-mode 1)
+;;   (setq key-chord-two-keys-delay 0.2)
+;;   ;; Max time delay between two presses of the same key to be considered a key chord.
+;;   ;; Should normally be a little longer than `key-chord-two-keys-delay'.
+;;   (setq key-chord-one-key-delay 0.3) ; default 0.2
+;;   ;(key-chord-define evil-insert-state-map "kj" 'evil-normal-state) 
+;;   (key-chord-define-global "kj" 'evil-normal-state) 
+;;   )
 
 ;;====================================
 ;; LINUM RELATIVE
@@ -422,15 +437,15 @@
 ;; ERC 
 ;;====================================
 ;; Set our nickname & real-name as constant variables
-(setq
- erc-nick "migap"     ; Our IRC nick
- erc-user-full-name "migap") ; Our /whois name
+;; (setq
+;;  erc-nick "migap"     ; Our IRC nick
+;;  erc-user-full-name "migap") ; Our /whois name
 
-;; Define a function to connect to a server
-(defun libera-server ()
-  (interactive)
-  (erc-tls :server "irc.libera.chat"
-       :port   "6697"))
+;; ;; Define a function to connect to a server
+;; (defun libera-server ()
+;;   (interactive)
+;;   (erc-tls :server "irc.libera.chat"
+;;        :port   "6697"))
 
 ;; Or assign it to a keybinding
 ;; This example is also using erc's TLS capabilities:
@@ -440,12 +455,12 @@
 ;  (erc-tls :server "server2.example.com"
 ;           :port   "6697")))
 
-;;====================================
-;; SLIME
-;;====================================
+;; ;;====================================
+;; ;; SLIME
+;; ;;====================================
 
-(load (expand-file-name "~/.quicklisp/slime-helper.el"))
-(setq inferior-lisp-program "sbcl")
+;; (load (expand-file-name "~/.quicklisp/slime-helper.el"))
+;; (setq inferior-lisp-program "sbcl")
 
 ;;====================================
 ;; UNDO-TREE
@@ -556,3 +571,16 @@
 (global-set-key (kbd "C-x w") 'elfeed)
 
 (load-file "~/dotfiles/elfeed-feeds.el")
+
+;;====================================
+;; ACE-WINDOW
+;;====================================
+; Easily switch between frames and windows
+(use-package ace-window
+  :ensure t
+  :bind
+  ("M-o" . ace-window)
+  :config
+  (setq aw-keys '(?q ?s ?d ?f ?g ?h ?j ?k ?l))
+  (setq aw-dispatch-always t)
+)
