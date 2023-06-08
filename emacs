@@ -142,6 +142,10 @@
 
 ; enable visual line mode by default in org files
 (add-hook 'org-mode-hook 'turn-on-visual-line-mode) 
+
+; completition option for org-mode jum C-c C-j 
+(setq org-goto-interface 'outline-path-completion)
+(setq org-outline-path-complete-in-steps nil)
 ;;====================================
 ;; MOOC Reproducible Research Templates
 ;;====================================
