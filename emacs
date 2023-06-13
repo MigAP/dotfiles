@@ -279,15 +279,25 @@ A->B
   )
 
 ;;====================================
+;; EVIL-ESCAPE 
+;;====================================
+(use-package evil-escape
+  :ensure t 
+  :config
+  (setq-default evil-escape-key-sequence "kj")
+  (evil-escape-mode)
+)
+
+;;====================================
 ;; KEY-CHORD 
 ;;====================================
 ;;Exit insert mode by pressing k and then j quickly
-(use-package key-chord
-  :ensure t 
-  :config
-  (setq key-chord-two-keys-delay 0.5)
-  (key-chord-define evil-insert-state-map "kj" 'evil-normal-state) 
-  (key-chord-mode 1))
+;; (use-package key-chord
+;;   :ensure t 
+;;   :config
+;;   (setq key-chord-two-keys-delay 0.5)
+;;   (key-chord-define evil-insert-state-map "kj" 'evil-normal-state) 
+;;   (key-chord-mode 1))
 
 ;;====================================
 ;; LINUM RELATIVE
