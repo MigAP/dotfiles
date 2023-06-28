@@ -81,5 +81,10 @@ fi
 # Avoid Tram from hanging
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
 
+# GUIX settings
+
+GUIX_PROFILE="/home/migap/.guix-profile"
+. "$GUIX_PROFILE/etc/profile"
+
 # End of lines configured by zsh-newuser-install
 source /home/migap/gitRepos/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
