@@ -85,6 +85,10 @@ fi
 
 GUIX_PROFILE="/home/migap/.guix-profile"
 . "$GUIX_PROFILE/etc/profile"
+export GUIX_LOCPATH=$HOME/.guix-profile/lib/locale
+
+GUILE_LOAD_PATH="/home/migap/.guix-profile/share/guile/site/3.0" # import modules installed with guix
 
 # End of lines configured by zsh-newuser-install
 source /home/migap/gitRepos/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
