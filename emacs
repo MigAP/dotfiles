@@ -271,9 +271,9 @@ A->B
   (evil-set-initial-state 'deft-mode 'emacs); disbable evil mode when in deft  
   (evil-set-initial-state 'elfeed-search-mode 'emacs); disbable evil mode when in elfeed  
   (evil-set-initial-state 'elfeed-show-mode 'emacs); disbable evil mode when in elfeed  
-  (evil-set-initial-state 'eww-mode 'emacs); disbable evil mode when in elfeed  
-  (evil-set-initial-state 'eww-buffers-mode 'emacs); disbable evil mode when in elfeed  
-  (evil-set-initial-state 'Info-mode 'emacs); disbable evil mode when in elfeed  
+  (evil-set-initial-state 'eww-mode 'emacs); 
+  (evil-set-initial-state 'eww-buffers-mode 'emacs); 
+  (evil-set-initial-state 'Info-mode 'emacs); 
   (evil-set-undo-system 'undo-tree)
   (global-undo-tree-mode 1)
   )
@@ -326,6 +326,7 @@ A->B
 (use-package tex
   ; It tries to install tex package and not auctex :ensure t 
   :config
+  (setq TeX-engine 'luatex);
   (setq TeX-auto-save t)
   (setq TeX-parse-self t)
   (setq-default TeX-master nil)
@@ -490,21 +491,6 @@ A->B
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
-
-;;====================================
-;; Elfeed
-;;====================================
-(setq elfeed-feeds
-      '("https://lukesmith.xyz/rss.xml"
-	"https://lukesmith.xyz/videos"
-        "https://notrelated.xyz/rss"
-        "https://robohub.org/feed?cat=-473"
-        "https://xkcd.com/atom.xml"
-        "http://www.aaronsw.com/2002/feeds/pgessays.rss"
-        "https://ambrevar.xyz/atom.xml"
-        "https://nullprogram.com/feed/"
-	"https://bzg.fr/en/index.xml"
-        ))
 
 ;;====================================
 ;; Projectile 
