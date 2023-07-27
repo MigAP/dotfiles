@@ -29,3 +29,15 @@
          (insert (file-relative-name filename)))
 
 (global-set-key "\C-c\C-i" 'my-insert-rel-file-name)
+
+;; Stolen from: https://www.emacswiki.org/emacs/InteractiveSpell#h5o-12 
+(defun dired-do-ispell (&optional arg)
+  (interactive "P")
+  (dolist (file (dired-get-marked-files
+                 nil arg
+                 #'(lambda (f)
+                     (not (file-directory-p f)))))
+    (save-window-excursion
+      (with-current-buffer (find-file file)
+        (ispell-buffer)))
+    (message nil)))
