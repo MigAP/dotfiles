@@ -696,7 +696,7 @@ A->B
 
 (global-set-key (kbd "C-x w") 'elfeed)
 
-(load-file "~/dotfiles/elfeed-feeds.el")
+(load-file "~/webdrive/elfeed-feeds.el")
 
 ;;====================================
 ;; ACE-WINDOW
