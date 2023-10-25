@@ -54,6 +54,17 @@
 
 ; load theme 
 (load-theme 'solarized-dark)
+
+;; pdf-tools remap vim navigation keybindings
+(add-hook 'pdf-view-mode-hook
+	  (lambda ()
+	    (local-set-key (kbd "j") #'pdf-view-next-line-or-next-page)
+	    (local-set-key (kbd "k") #'pdf-view-previous-line-or-previous-page)
+	    (local-set-key (kbd "l") #'image-forward-hscroll)
+	    (local-set-key (kbd "h") #'image-backward-hscroll)
+	    (local-set-key (kbd "J") #'pdf-view-next-page)
+	    (local-set-key (kbd "K") #'pdf-view-previous-page)))
+
 ;;====================================
 ;;ORG MODE 
 ;;====================================
@@ -336,17 +347,18 @@
 ;;====================================
 ;; Elfeed
 ;;====================================
-(setq elfeed-feeds
-      '("https://lukesmith.xyz/rss.xml"
-	"https://lukesmith.xyz/videos"
-        "https://notrelated.xyz/rss"
-        "https://robohub.org/feed?cat=-473"
-        "https://xkcd.com/atom.xml"
-        "http://www.aaronsw.com/2002/feeds/pgessays.rss"
-        "https://ambrevar.xyz/atom.xml"
-        "https://nullprogram.com/feed/"
-	"https://bzg.fr/en/index.xml"
-        ))
+;; (setq elfeed-feeds
+;;       '("https://lukesmith.xyz/rss.xml"
+;; 	"https://lukesmith.xyz/videos"
+;;         "https://notrelated.xyz/rss"
+;;         "https://robohub.org/feed?cat=-473"
+;;         "https://xkcd.com/atom.xml"
+;;         "http://www.aaronsw.com/2002/feeds/pgessays.rss"
+;;         "https://ambrevar.xyz/atom.xml"
+;;         "https://nullprogram.com/feed/"
+;; 	"https://bzg.fr/en/index.xml"
+;;         ))
+(load-file "/home/migap/webdrive/elfeed-feeds.el")
 
 ;;====================================
 ;; Projectile 
@@ -387,3 +399,22 @@
 ;; UNDO-TREE
 ;;====================================
 (setq undo-tree-auto-save-history nil)
+
+;;====================================
+;; PDF-TOOLS
+;;====================================
+(use-package pdf-tools
+   :pin manual
+   :config
+   (pdf-tools-install)
+   (setq-default pdf-view-display-size 'fit-width)
+   (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward)
+   (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
+   :custom
+   (pdf-annot-activate-created-annotations t "automatically annotate highlights"))
+
+;;====================================
+;; GEISER
+;;====================================
+
+(setq geiser-chicken-binary "chicken-csi") ; in Arch it is chicken-csi
