@@ -67,8 +67,8 @@ bindkey '^e' edit-command-line
 [ -f "$HOME/.bash_aliases" ] && source "$HOME/.bash_aliases"
 
 # FZF
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
 
 # emacs M-x shell
 if [[ "dumb" == $TERM ]] ; then
@@ -82,7 +82,10 @@ fi
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
 
 # zsh completion 
-fpath=(/home/migap/gitRepos/zsh-completions/src $fpath)
+fpath=(/home/migap/repos/others/zsh-completions/src $fpath)
+
+# PATH config 
+export PATH=$PATH:/home/migap/scripts
 
 # End of lines configured by zsh-newuser-install
-source /home/migap/gitRepos/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/migap/repos/others/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
