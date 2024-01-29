@@ -1,8 +1,0 @@
-! Swap CapsLock with Control 
-clear lock 
-clear control 
-keycode 66 = Control_L
-add control = Control_L Control_R
-
-! Set left super  to compose key 
-keycode 134 = Multi_key Alt_R Meta_R Alt_R Meta_R
