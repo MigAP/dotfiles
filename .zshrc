@@ -66,6 +66,18 @@ bindkey '^e' edit-command-line
 # Load aliases and shortcuts if existent.
 [ -f "$HOME/.bash_aliases" ] && source "$HOME/.bash_aliases"
 
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
 # FZF
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
@@ -81,5 +93,12 @@ fi
 # Avoid Tram from hanging
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
 
+# Personal functions
+ll () ls -al
+
+# guix 
+ GUIX_PROFILE="/home/migap/.guix-profile"
+ . "$GUIX_PROFILE/etc/profile"
+
 # End of lines configured by zsh-newuser-install
-source /home/migap/repos/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/migap/repos/others/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
