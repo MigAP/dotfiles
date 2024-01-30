@@ -8,7 +8,7 @@
 dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
 #files="bashrc vimrc vim zshrc oh-my-zsh"    # list of files/folders to symlink in homedir
-files="bashrc bash_aliases emacs vimrc"    # list of files/folders to symlink in homedir
+files="bashrc bash_aliases emacs vimrc screenrc tmux.conf Xmodmap"    # list of files/folders to symlink in homedir
 
 ##########
 
@@ -29,3 +29,5 @@ for file in $files; do
     echo "Creating symlink to $file in home directory."
     ln -nfs $dir/$file ~/.$file
 done
+
+
