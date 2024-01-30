@@ -129,3 +129,13 @@ export ACADOS_INSTALL_DIR="/home/migap/gitRepos/acados"
 
 # add custom scripts as commands 
 export PATH=$PATH:~/scripts
+
+# Automatically added by the Guix install script.
+if [ -n "$GUIX_ENVIRONMENT" ]; then
+    if [[ $PS1 =~ (.*)"\\$" ]]; then
+        PS1="${BASH_REMATCH[1]} [env]\\\$ "
+    fi
+fi
+
+source /usr/share/fzf/completion.bash
+source /usr/share/fzf/key-bindings.bash
