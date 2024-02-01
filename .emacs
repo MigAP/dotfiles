@@ -413,21 +413,6 @@
   :init (setq markdown-command "multimarkdown"))
 
 ;;====================================
-;; Elfeed
-;;====================================
-(setq elfeed-feeds
-      '("https://lukesmith.xyz/rss.xml"
-	"https://lukesmith.xyz/videos"
-        "https://notrelated.xyz/rss"
-        "https://robohub.org/feed?cat=-473"
-        "https://xkcd.com/atom.xml"
-        "http://www.aaronsw.com/2002/feeds/pgessays.rss"
-        "https://ambrevar.xyz/atom.xml"
-        "https://nullprogram.com/feed/"
-	"https://bzg.fr/en/index.xml"
-        ))
-
-;;====================================
 ;; Projectile 
 ;;====================================
 (projectile-mode +1)
@@ -570,7 +555,7 @@
 
 (global-set-key (kbd "C-x w") 'elfeed)
 
-;(load-file "~/dotfiles/elfeed-feeds.el")
+(load-file "~/repos/mine/dotfiles/elfeed-feeds.el")
 
 ;;====================================
 ;; ACE-WINDOW
