@@ -70,6 +70,10 @@ bindkey '^e' edit-command-line
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
 
+# EDITOR
+export EDITOR=vim
+export VISUAL="emacsclient -c -a emacs"         # $VISUAL opens in GUI mode
+
 # emacs M-x shell
 if [[ "dumb" == $TERM ]] ; then
   alias less='cat'
