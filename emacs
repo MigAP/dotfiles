@@ -219,6 +219,13 @@
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
   (add-hook 'LaTeX-mode-hook 'linum-relative-mode); with AUCTeX LaTeX mode
   (setq reftex-plug-into-AUCTeX t) ; makes reftex colaborate with AUCTex
+  ;; Use pdf-tools to open PDF files
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+	TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
+	TeX-source-correlate-start-server t)
+  ;; Update PDF buffers after successful LaTeX runs
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer)
 
   ;; ##### Enable synctex correlation. From Okular just press
   ;; ##### Shift + Left click to go to the good line.
@@ -227,8 +234,8 @@
   )
 
 ;; ### Set Okular as the default PDF viewer.
-(eval-after-load "tex"
-  '(setcar (cdr (assoc 'output-pdf TeX-view-program-selection)) "Okular"))
+;; (eval-after-load "tex"
+;;   '(setcar (cdr (assoc 'output-pdf TeX-view-program-selection)) "Okular"))
 
 ;;====================================
 ;; IVY
