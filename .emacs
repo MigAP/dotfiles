@@ -34,8 +34,10 @@
 (setq mouse-wheel-scroll-amount '(1)) ; Distance in pixel-resolution to scroll each mouse wheel event.
 (setq mouse-wheel-progressive-speed nil) ; Progressive speed is too fast for me.
 
-;; hide tool-bar 
+;; hide tool-bar, menu-bar and scroll bar
 (tool-bar-mode -1)
+(set-scroll-bar-mode nil)
+(menu-bar-mode -1)
 
 ;; To use all the symbols in the keyboard 
 (require 'iso-transl) 
