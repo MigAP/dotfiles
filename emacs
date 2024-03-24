@@ -430,4 +430,8 @@
 ;; GEISER
 ;;====================================
 
-(setq geiser-chicken-binary "chicken-csi") ; in Arch it is chicken-csi
+(use-package geiser
+  :ensure t
+  :config
+  (setq geiser-chicken-binary "chicken-csi")) ; in Arch it is chicken-csi
+  
