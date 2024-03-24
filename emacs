@@ -194,7 +194,11 @@
 ;;====================================
 ;; LINUM RELATIVE
 ;;====================================
-(setq linum-relative-current-symbol "") ; instead of 0, displays actual line number in current line 
+(use-package linum-relative
+  :config
+  (setq linum-relative-current-symbol "") ; instead of 0, displays actual line number in current line 
+  (add-hook 'LaTeX-mode-hook 'linum-relative-mode); with AUCTeX LaTeX mode
+  (add-hook 'scheme-mode-hook 'linum-relative-mode))
 
 ;;====================================
 ;; YAsnippet
@@ -205,6 +209,7 @@
   (yas-reload-all)
   (add-hook 'octave-mode-hook 'yas-minor-mode)
   (add-hook 'LaTeX-mode-hook 'yas-minor-mode)
+  (add-hook 'scheme-mode-hook 'yas-minor-mode)
   (add-hook 'org-mode-hook 'yas-minor-mode))
 
 ;;====================================
@@ -219,7 +224,6 @@
   (setq-default TeX-master nil)
   (add-hook 'latex-mode-hook 'turn-on-reftex)
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
-  (add-hook 'LaTeX-mode-hook 'linum-relative-mode); with AUCTeX LaTeX mode
   (setq reftex-plug-into-AUCTeX t) ; makes reftex colaborate with AUCTex
   ;; Use pdf-tools to open PDF files
   (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
