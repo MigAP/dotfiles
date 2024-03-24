@@ -16,14 +16,14 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
-;; Turn off bell 
+;; Turn off bell
 (setq ring-bell-function 'ignore)
 
 ;; Scroll one line at a time (less "jumpy" than defaults)
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
-;; Scroll one line at the time 
+;; Scroll one line at the time
 (setq scroll-step 1)
 (setq scroll-conservatively 10000)
 
@@ -39,26 +39,26 @@
 (set-scroll-bar-mode nil)
 (menu-bar-mode -1)
 
-;; To use all the symbols in the keyboard 
-(require 'iso-transl) 
+;; To use all the symbols in the keyboard
+(require 'iso-transl)
 
-;; Font setup 
+;; Font setup
 ;;(set-face-attribute 'default nil :height 120)
 (set-frame-font "Monospace 14" nil t)
 
 ; make ibuffer default
-(defalias 'list-buffers 'ibuffer) 
+(defalias 'list-buffers 'ibuffer)
 
 ; disable parent mode
 (setq show-paren-mode t)
 
-; start the emacs server 
-(server-start) 
+; start the emacs server
+(server-start)
 
 ; Indentation style for CC Mode
 (setq c-default-style "k&r")
 
-; load theme 
+; load theme
 (load-theme 'solarized-dark)
 
 ;; pdf-tools remap vim navigation keybindings
@@ -80,17 +80,17 @@
 ;; (define-key dired-mode-map (kbd "l") 'dired-find-file)
 
 ;;====================================
-;;ORG MODE 
+;;ORG MODE
 ;;====================================
 (require 'org)
 ;; Default setting: Use "python3" under Linux and macOS, but "Python" under Windows.
 ;; The default for R is "R" for all platforms (predefined by Emacs).
 (setq org-babel-python-command
       (if (memq system-type '(windows-nt ms-dos))
-          "Python"
-        "python3 -q"))
+	  "Python"
+	"python3 -q"))
 
-; Org mode languages execution 
+; Org mode languages execution
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)
@@ -98,25 +98,25 @@
    ))
 
 ;; Do not ask for confirmation all the time!!
-(setq org-confirm-babel-evaluate nil) 
+(setq org-confirm-babel-evaluate nil)
 
 ;;This often fails, yielding an ugly warning, and isn't of any use in Org-mode anyway
 (setq python-shell-completion-native-enable nil)
 
 ;; Display images after code evaluation
-(add-hook 'org-babel-after-execute-hook 'org-display-inline-images) 
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
 
 (require 'ox-latex)
 ; use minted package and also babel configuration
 (add-to-list 'org-latex-packages-alist
-             '("AUTO" "babel" t ("pdflatex") '("" "minted")))
+	     '("AUTO" "babel" t ("pdflatex") '("" "minted")))
 (setq org-latex-listings 'minted)
 
-; scale the latex preview in org mode 
+; scale the latex preview in org mode
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 
 ; enable visual line mode by default in org files
-(add-hook 'org-mode-hook 'turn-on-visual-line-mode) 
+(add-hook 'org-mode-hook 'turn-on-visual-line-mode)
 
 ;;====================================
 ;; MOOC Reproducible Research Templates
@@ -128,11 +128,11 @@
 ;; (require 'subr-x)
 ;; (defun rrmooc/add-org-template (old-style-template)
 ;;   (add-to-list 'org-structure-template-alist
-;; 	       (if rrmooc/new-org-templates
-;; 		   (cons
-;; 		    (first old-style-template)
-;; 		    (string-trim-right (substring (second old-style-template) 8 -9)))
-;; 		 old-style-template)))
+;;	       (if rrmooc/new-org-templates
+;;		   (cons
+;;		    (first old-style-template)
+;;		    (string-trim-right (substring (second old-style-template) 8 -9)))
+;;		 old-style-template)))
 
 ;; (unless rrmooc/new-org-templates
 ;;   ;; this template is predefined in the new templating system
@@ -181,15 +181,15 @@
 ;; }\n#+end_src" "<src lang=\"dot\">\n\n</src>"))
 
 ;;====================================
-;;ORG CAPTURE 
+;;ORG CAPTURE
 ;;====================================
 (global-set-key (kbd "C-c c") 'org-capture)
 (setq org-default-notes-file (concat org-directory "~/org/capture/notes.org"))
 (setq org-capture-templates
       '(("t" "Todo" entry (file+headline "~/org/capture/gtd.org" "Tasks")
-         "* TODO %?\n  %i\n  %a")
-        ("j" "Journal" entry (file+datetree "~/org/capture/journal.org")
-         "* %?\nEntered on %U\n  %i\n  %a")))
+	 "* TODO %?\n  %i\n  %a")
+	("j" "Journal" entry (file+datetree "~/org/capture/journal.org")
+	 "* %?\nEntered on %U\n  %i\n  %a")))
 
 ;;====================================
 ;; ORG REF
@@ -198,9 +198,9 @@
 (setq org-ref-default-bibliography '("/home/migap/org/bibliography.bib"))
 (setq org-ref-completion-library 'org-ref-ivy-cite)
 (require 'org-ref)
-(setq org-latex-prefer-user-labels t) ; to use my own references 
+(setq org-latex-prefer-user-labels t) ; to use my own references
 (define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link) ; key-binding for inserting reference
-; For LaTeX export settings 
+; For LaTeX export settings
 ; add shell escape for minted latex package
 (setq org-latex-pdf-process
       '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
@@ -212,7 +212,7 @@
   "Open the pdf for bibtex key under point if it exists."
   (interactive)
   (let* ((results (org-ref-get-bibtex-key-and-file))
-         (key (car results))
+	 (key (car results))
 	 (pdf-file (car (bibtex-completion-find-pdf key))))
     (if (file-exists-p pdf-file)
 	(org-open-file pdf-file)
@@ -231,28 +231,28 @@
 ;; MAGIT
 ;;====================================
 (use-package magit
-  :ensure t 
+  :ensure t
   :bind ("C-x g" . magit-status))
 
 
 ;;====================================
-;;EVIL 
+;;EVIL
 ;;====================================
 (use-package evil
   :init (setq evil-want-C-i-jump nil) ; restore TAB to org-cycle
   :ensure t
   :config
   (evil-mode 1)
-  (evil-set-initial-state 'dired-mode 'emacs); disbable evil mode when dired 
-  (evil-set-initial-state 'deft-mode 'emacs); disbable evil mode when in deft  
-  (evil-set-initial-state 'elfeed-search-mode 'emacs); disbable evil mode when in elfeed  
-  (evil-set-initial-state 'elfeed-show-mode 'emacs); disbable evil mode when in elfeed  
+  (evil-set-initial-state 'dired-mode 'emacs); disbable evil mode when dired
+  (evil-set-initial-state 'deft-mode 'emacs); disbable evil mode when in deft
+  (evil-set-initial-state 'elfeed-search-mode 'emacs); disbable evil mode when in elfeed
+  (evil-set-initial-state 'elfeed-show-mode 'emacs); disbable evil mode when in elfeed
   (evil-set-undo-system 'undo-tree)
   (global-undo-tree-mode 1)
   )
 
 ;;====================================
-;; EVIL-ESCAPE 
+;; EVIL-ESCAPE
 ;;====================================
 (use-package evil-escape
   :ensure t
@@ -263,25 +263,29 @@
 
 
 ;;====================================
-;; KEY-CHORD 
+;; KEY-CHORD
 ;;====================================
 ; Exit insert mode by pressing k and then j quickly
 ;; (use-package key-chord
-;;   :ensure t 
+;;   :ensure t
 ;;   :config
 ;;   (key-chord-mode 1)
 ;;   (setq key-chord-two-keys-delay 0.2)
 ;;   ;; Max time delay between two presses of the same key to be considered a key chord.
 ;;   ;; Should normally be a little longer than `key-chord-two-keys-delay'.
 ;;   (setq key-chord-one-key-delay 0.3) ; default 0.2
-;;   ;(key-chord-define evil-insert-state-map "kj" 'evil-normal-state) 
-;;   (key-chord-define-global "kj" 'evil-normal-state) 
+;;   ;(key-chord-define evil-insert-state-map "kj" 'evil-normal-state)
+;;   (key-chord-define-global "kj" 'evil-normal-state)
 ;;   )
 
 ;;====================================
 ;; LINUM RELATIVE
 ;;====================================
-(setq linum-relative-current-symbol "") ; instead of 0, displays actual line number in current line 
+(use-package linum-relative
+  :config
+  (setq linum-relative-current-symbol "") ; instead of 0, displays actual line number in current line
+  (add-hook 'LaTeX-mode-hook 'linum-relative-mode); with AUCTeX LaTeX mode
+  (add-hook 'scheme-mode-hook 'linum-relative-mode))
 
 ;;====================================
 ;; YAsnippet
@@ -292,6 +296,7 @@
   (yas-reload-all)
   (add-hook 'octave-mode-hook 'yas-minor-mode)
   (add-hook 'LaTeX-mode-hook 'yas-minor-mode)
+  (add-hook 'scheme-mode-hook 'yas-minor-mode)
   (add-hook 'org-mode-hook 'yas-minor-mode))
 
 ;;====================================
@@ -299,14 +304,13 @@
 ;;====================================
 
 (use-package tex
-  ; It tries to install tex package and not auctex :ensure t 
+  ; It tries to install tex package and not auctex :ensure t
   :config
   (setq TeX-auto-save t)
   (setq TeX-parse-self t)
   (setq-default TeX-master nil)
   (add-hook 'latex-mode-hook 'turn-on-reftex)
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
-  (add-hook 'LaTeX-mode-hook 'linum-relative-mode); with AUCTeX LaTeX mode
   (setq reftex-plug-into-AUCTeX t) ; makes reftex colaborate with AUCTex
   ;; Use pdf-tools to open PDF files
   (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
@@ -314,11 +318,11 @@
 	TeX-source-correlate-start-server t)
   ;; Update PDF buffers after successful LaTeX runs
   (add-hook 'TeX-after-compilation-finished-functions
-            #'TeX-revert-document-buffer)
+	    #'TeX-revert-document-buffer)
   ;; ##### Enable synctex correlation. From Okular just press
   ;; ##### Shift + Left click to go to the good line.
   (setq TeX-source-correlate-mode t
-        TeX-source-correlate-start-server t)
+	TeX-source-correlate-start-server t)
   )
 
 (eval-after-load "latex"
@@ -331,24 +335,24 @@
 ;;====================================
 ;; IVY
 ;;====================================
-;; Ivy mode for completition 
+;; Ivy mode for completition
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
 (setq ivy-count-format "(%d/%d) ")
-(setq ivy-use-selectable-prompt t) ; allows to select "bar" when "barricade" already exists 
+(setq ivy-use-selectable-prompt t) ; allows to select "bar" when "barricade" already exists
 
 ;;====================================
 ;; IVY BIBTEX
 ;;====================================
-;; Ivy-bibtex : managing bibliography 
+;; Ivy-bibtex : managing bibliography
 (setq bibtex-completion-bibliography
       '("/home/migap/org/bibliography.bib"
-        ))
+	))
 (setq bibtex-completion-pdf-field "file")
 
-; citation configuration 
+; citation configuration
 (setq bibtex-completion-format-citation-functions
-  '((org-mode      . bibtex-completion-format-citation-org-link-to-PDF) ; in order to insert a link to the files 
+  '((org-mode      . bibtex-completion-format-citation-org-link-to-PDF) ; in order to insert a link to the files
     (latex-mode    . bibtex-completion-format-citation-cite)
     (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)
     (default       . bibtex-completion-format-citation-default)))
@@ -357,7 +361,7 @@
 
 
 ;;====================================
-;; ORG ROAM 
+;; ORG ROAM
 ;;====================================
 
 (use-package org-roam
@@ -367,9 +371,9 @@
   (setq org-roam-v2-ack t) ;; acknowledge upgrade and remove warning at startup
   :config
   (setq org-roam-directory
-        (file-truename "/home/migap/org/roam/"))
+	(file-truename "/home/migap/org/roam/"))
   (setq org-roam-db-location
-        (concat org-roam-directory "org-roam.db"))
+	(concat org-roam-directory "org-roam.db"))
   (org-roam-setup)
   :bind
   ("C-c n i" . org-roam-node-insert)
@@ -410,18 +414,18 @@
   :ensure t
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
-         ("\\.md\\'" . markdown-mode)
-         ("\\.markdown\\'" . markdown-mode))
+	 ("\\.md\\'" . markdown-mode)
+	 ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 
 ;;====================================
-;; Projectile 
+;; Projectile
 ;;====================================
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 ;;====================================
-;; ERC 
+;; ERC
 ;;====================================
 ;; Set our nickname & real-name as constant variables
 ;; (setq
@@ -570,4 +574,12 @@
   :config
   (setq aw-keys '(?q ?s ?d ?f ?g ?h ?j ?k ?l))
   (setq aw-dispatch-always t)
+)
+
+;;====================================
+;; GEISER
+;;====================================
+
+(use-package geiser
+  :ensure t
 )
