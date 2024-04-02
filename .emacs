@@ -285,6 +285,7 @@
   :config
   (setq linum-relative-current-symbol "") ; instead of 0, displays actual line number in current line
   (add-hook 'LaTeX-mode-hook 'linum-relative-mode); with AUCTeX LaTeX mode
+  (add-hook 'c-mode-common-hook 'linum-relative-mode); with AUCTeX LaTeX mode
   (add-hook 'scheme-mode-hook 'linum-relative-mode))
 
 ;;====================================
@@ -297,6 +298,7 @@
   (add-hook 'octave-mode-hook 'yas-minor-mode)
   (add-hook 'LaTeX-mode-hook 'yas-minor-mode)
   (add-hook 'scheme-mode-hook 'yas-minor-mode)
+  (add-hook 'c-mode-common-hook 'yas-minor-mode)
   (add-hook 'org-mode-hook 'yas-minor-mode))
 
 ;;====================================
