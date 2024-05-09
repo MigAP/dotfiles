@@ -202,11 +202,14 @@
 (define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link) ; key-binding for inserting reference
 ; For LaTeX export settings
 ; add shell escape for minted latex package
-(setq org-latex-pdf-process
-      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-	"bibtex %b"
-	"pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-	"pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+;; (setq org-latex-pdf-process
+;;       '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+;; 	"bibtex %b"
+;; 	"pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+;; 	"pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+;; From the org-ref-help file: 
+(setq  org-latex-pdf-process '("latexmk -shell-escape -bibtex -pdf %f"))
 
 (defun my/org-ref-open-pdf-at-point ()
   "Open the pdf for bibtex key under point if it exists."
