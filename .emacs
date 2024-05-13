@@ -343,6 +343,16 @@
   (marginalia-mode))
 
 ;;====================================
+;; CONSULT
+;;====================================
+(use-package consult
+  :config
+  ;; for evil minibuffer completition
+  (setq completion-in-region-function 'consult-completion-in-region)
+  )
+
+
+;;====================================
 ;; CITAR
 ;;====================================
 (use-package citar
