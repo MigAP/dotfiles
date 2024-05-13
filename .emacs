@@ -275,33 +275,93 @@
 ;; (eval-after-load "tex"
 ;;   '(setcar (cdr (assoc 'output-pdf TeX-view-program-selection)) "Okular"))
 
-;;====================================
-;; IVY
-;;====================================
-;; Ivy mode for completition
-(ivy-mode 1)
-(setq ivy-use-virtual-buffers t)
-(setq ivy-count-format "(%d/%d) ")
-(setq ivy-use-selectable-prompt t) ; allows to select "bar" when "barricade" already exists
+;; ;;====================================
+;; ;; IVY
+;; ;;====================================
+;; ;; Ivy mode for completition
+;; (ivy-mode 1)
+;; (setq ivy-use-virtual-buffers t)
+;; (setq ivy-count-format "(%d/%d) ")
+;; (setq ivy-use-selectable-prompt t) ; allows to select "bar" when "barricade" already exists
+
+;; ;;====================================
+;; ;; IVY BIBTEX
+;; ;;====================================
+;; ;; Ivy-bibtex : managing bibliography
+;; (setq bibtex-completion-bibliography
+;;       '("/home/migap/org/bibliography.bib"
+;; 	))
+;; (setq bibtex-completion-pdf-field "file")
+
+;; ; citation configuration
+;; (setq bibtex-completion-format-citation-functions
+;;   '((org-mode      . bibtex-completion-format-citation-org-link-to-PDF) ; in order to insert a link to the files
+;;     (latex-mode    . bibtex-completion-format-citation-cite)
+;;     (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)
+;;     (default       . bibtex-completion-format-citation-default)))
+
+;; (global-set-key (kbd "C-c b") 'ivy-bibtex)
 
 ;;====================================
-;; IVY BIBTEX
+;; VERTICO
 ;;====================================
-;; Ivy-bibtex : managing bibliography
-(setq bibtex-completion-bibliography
-      '("/home/migap/org/bibliography.bib"
-	))
-(setq bibtex-completion-pdf-field "file")
+;; Enable vertico
+(use-package vertico
+  :init
+  (vertico-mode)
 
-; citation configuration
-(setq bibtex-completion-format-citation-functions
-  '((org-mode      . bibtex-completion-format-citation-org-link-to-PDF) ; in order to insert a link to the files
-    (latex-mode    . bibtex-completion-format-citation-cite)
-    (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)
-    (default       . bibtex-completion-format-citation-default)))
+  ;; Different scroll margin
+  ;; (setq vertico-scroll-margin 0)
 
-(global-set-key (kbd "C-c b") 'ivy-bibtex)
+  ;; Show more candidates
+  ;; (setq vertico-count 20)
 
+  ;; Grow and shrink the Vertico minibuffer
+  ;; (setq vertico-resize t)
+
+  ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
+  ;; (setq vertico-cycle t)
+  )
+
+;;====================================
+;; MARGINALIA
+;;====================================
+;; Enable rich annotations using the Marginalia package
+(use-package marginalia
+  ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
+  ;; available in the *Completions* buffer, add it to the
+  ;; `completion-list-mode-map'.
+  :bind (:map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
+
+  ;; The :init section is always executed.
+  :init
+
+  ;; Marginalia must be activated in the :init section of use-package such that
+  ;; the mode gets enabled right away. Note that this forces loading the
+  ;; package.
+  (marginalia-mode))
+
+;;====================================
+;; CITAR
+;;====================================
+(use-package citar
+  :custom
+  (citar-bibliography '("~/org/bibliography.bib"))
+  (org-cite-global-bibliography '("~/org/bibliography.bib"))
+  (org-cite-insert-processor 'citar)
+  (org-cite-follow-processor 'citar)
+  (org-cite-activate-processor 'citar)
+  (citar-bibliography org-cite-global-bibliography)
+  ;; optional: org-cite-insert is also bound to C-c C-x C-@
+  ;; :bind
+  ;; (:map org-mode-map :package org ("C-c b" . #'org-cite-insert))
+  )
+
+(use-package citar-embark
+  :after citar embark
+  :no-require
+  :config (citar-embark-mode))
 
 ;;====================================
 ;; ORG ROAM
