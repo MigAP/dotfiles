@@ -71,6 +71,12 @@
 	    (local-set-key (kbd "J") #'pdf-view-next-page)
 	    (local-set-key (kbd "K") #'pdf-view-previous-page)))
 
+;; Vim mode navigation
+(bind-key* (kbd "M-h") #'backward-char)
+(bind-key* (kbd "M-j") #'next-line)
+(bind-key* (kbd "M-k") #'previous-line)
+(bind-key* (kbd "M-l") #'forward-char)
+
 ;;====================================
 ;;DIRED
 ;;====================================
