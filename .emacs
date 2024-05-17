@@ -58,6 +58,10 @@
 ; Indentation style for CC Mode
 (setq c-default-style "k&r")
 
+
+; key-binding for compilation
+(bind-key* (kbd "C-c C-m") #'compile)
+
 ; load theme
 (load-theme 'solarized-dark)
 
