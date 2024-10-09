@@ -11,7 +11,7 @@
 ;;====================================
 ;; EMACS BEHAVIOUR
 ;;====================================
-;; Separate custom file from configuration file
+
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (when (file-exists-p custom-file)
   (load custom-file))
@@ -62,8 +62,6 @@
 ; key-binding for compilation
 (bind-key* (kbd "C-c C-m") #'compile)
 
-; load theme
-(load-theme 'solarized-dark)
 
 ;; pdf-tools remap vim navigation keybindings
 (add-hook 'pdf-view-mode-hook
@@ -81,13 +79,20 @@
 (bind-key* (kbd "M-k") #'previous-line)
 (bind-key* (kbd "M-l") #'forward-char)
 
+;; Relative line numbers
+(setq display-line-numbers-type 'relative)
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+
 ;;====================================
-;;DIRED
+;; SOLARIZED
 ;;====================================
-;; (define-key dired-mode-map (kbd "j") 'dired-next-line)
-;; (define-key dired-mode-map (kbd "k") 'dired-previous-line)
-;; (define-key dired-mode-map (kbd "h") 'dired-up-directory)
-;; (define-key dired-mode-map (kbd "l") 'dired-find-file)
+
+(use-package solarized-theme
+  :ensure t
+  :config
+  ; load theme
+  (load-theme 'solarized-dark))
+ 
 
 ;;====================================
 ;;ORG MODE
@@ -140,50 +145,25 @@
 	 "* %?\nEntered on %U\n  %i\n  %a")))
 
 ;;====================================
-;; ORG REF
-;;====================================
-;;; org-ref
-(setq org-ref-default-bibliography '("/home/migap/org/bibliography.bib"))
-(setq org-ref-completion-library 'org-ref-ivy-cite)
-(require 'org-ref)
-(setq org-latex-prefer-user-labels t) ; to use my own references
-(define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link) ; key-binding for inserting reference
-; For LaTeX export settings
-; add shell escape for minted latex package
-;; (setq org-latex-pdf-process
-;;       '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-;; 	"bibtex %b"
-;; 	"pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-;; 	"pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-
-;; From the org-ref-help file: 
-(setq  org-latex-pdf-process '("latexmk -shell-escape -bibtex -pdf %f"))
-
-(defun my/org-ref-open-pdf-at-point ()
-  "Open the pdf for bibtex key under point if it exists."
-  (interactive)
-  (let* ((results (org-ref-get-bibtex-key-and-file))
-	 (key (car results))
-	 (pdf-file (car (bibtex-completion-find-pdf key))))
-    (if (file-exists-p pdf-file)
-	(org-open-file pdf-file)
-      (message "No PDF found for %s" key))))
-
-(setq org-ref-open-pdf-function 'my/org-ref-open-pdf-at-point)
-
-;;====================================
-;;ORG OX-HUGO
+;; ORG ROAM
 ;;====================================
 
-;; (use-package ox-hugo
-;;   :after ox)
-
-;;====================================
-;; MAGIT
-;;====================================
-(use-package magit
+(use-package org-roam
   :ensure t
-  :bind ("C-x g" . magit-status))
+  :after org
+  :init
+  (setq org-roam-v2-ack t) ;; acknowledge upgrade and remove warning at startup
+  :config
+  (setq org-roam-directory
+	(file-truename "/home/arpaperm/org/roam/"))
+  (setq org-roam-db-location
+	(concat org-roam-directory "org-roam.db"))
+  (org-roam-setup)
+  :bind
+  ("C-c n i" . org-roam-node-insert)
+  ("C-c n f" . org-roam-node-find)
+  ("C-c n l" . org-roam-buffer-toggle)
+  )
 
 
 ;;====================================
@@ -212,33 +192,6 @@
   (setq-default evil-escape-key-sequence "kj")
   )
 
-
-;;====================================
-;; KEY-CHORD
-;;====================================
-; Exit insert mode by pressing k and then j quickly
-;; (use-package key-chord
-;;   :ensure t
-;;   :config
-;;   (key-chord-mode 1)
-;;   (setq key-chord-two-keys-delay 0.2)
-;;   ;; Max time delay between two presses of the same key to be considered a key chord.
-;;   ;; Should normally be a little longer than `key-chord-two-keys-delay'.
-;;   (setq key-chord-one-key-delay 0.3) ; default 0.2
-;;   ;(key-chord-define evil-insert-state-map "kj" 'evil-normal-state)
-;;   (key-chord-define-global "kj" 'evil-normal-state)
-;;   )
-
-;;====================================
-;; LINUM RELATIVE
-;;====================================
-(use-package linum-relative
-  :config
-  (setq linum-relative-current-symbol "") ; instead of 0, displays actual line number in current line
-  (add-hook 'LaTeX-mode-hook 'linum-relative-mode); with AUCTeX LaTeX mode
-  (add-hook 'c-mode-common-hook 'linum-relative-mode); with AUCTeX LaTeX mode
-  (add-hook 'scheme-mode-hook 'linum-relative-mode))
-
 ;;====================================
 ;; YAsnippet
 ;;====================================
@@ -253,10 +206,19 @@
   (add-hook 'org-mode-hook 'yas-minor-mode))
 
 ;;====================================
+;; MAGIT
+;;====================================
+(use-package magit
+  :ensure t
+  :bind ("C-x g" . magit-status))
+
+
+;;====================================
 ;; AUCTeX
 ;;====================================
 
-(use-package tex
+(use-package auctex
+  :ensure t
   ; It tries to install tex package and not auctex :ensure t
   :config
   (setq TeX-auto-save t)
@@ -285,38 +247,41 @@
 ;; (eval-after-load "tex"
 ;;   '(setcar (cdr (assoc 'output-pdf TeX-view-program-selection)) "Okular"))
 
-;; ;;====================================
-;; ;; IVY
-;; ;;====================================
-;; ;; Ivy mode for completition
-;; (ivy-mode 1)
-;; (setq ivy-use-virtual-buffers t)
-;; (setq ivy-count-format "(%d/%d) ")
-;; (setq ivy-use-selectable-prompt t) ; allows to select "bar" when "barricade" already exists
 
-;; ;;====================================
-;; ;; IVY BIBTEX
-;; ;;====================================
-;; ;; Ivy-bibtex : managing bibliography
-;; (setq bibtex-completion-bibliography
-;;       '("/home/migap/org/bibliography.bib"
-;; 	))
-;; (setq bibtex-completion-pdf-field "file")
+;;====================================
+;; ORG REF
+;;====================================
 
-;; ; citation configuration
-;; (setq bibtex-completion-format-citation-functions
-;;   '((org-mode      . bibtex-completion-format-citation-org-link-to-PDF) ; in order to insert a link to the files
-;;     (latex-mode    . bibtex-completion-format-citation-cite)
-;;     (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)
-;;     (default       . bibtex-completion-format-citation-default)))
+(use-package org-ref
+  :ensure t
+  :config
+  
+  (setq org-ref-default-bibliography '("/home/arpaperm/org/bibliography.bib"))
+  (setq org-ref-completion-library 'org-ref-ivy-cite)
+  (require 'org-ref)
+  (setq org-latex-prefer-user-labels t) ; to use my own references
+  (define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link) ; key-binding for inserting reference
+  ;; From the org-ref-help file: 
+  (setq  org-latex-pdf-process '("latexmk -shell-escape -bibtex -pdf %f"))
 
-;; (global-set-key (kbd "C-c b") 'ivy-bibtex)
+  (defun my/org-ref-open-pdf-at-point ()
+    "Open the pdf for bibtex key under point if it exists."
+    (interactive)
+    (let* ((results (org-ref-get-bibtex-key-and-file))
+	   (key (car results))
+	   (pdf-file (car (bibtex-completion-find-pdf key))))
+      (if (file-exists-p pdf-file)
+	  (org-open-file pdf-file)
+	(message "No PDF found for %s" key))))
+
+  (setq org-ref-open-pdf-function 'my/org-ref-open-pdf-at-point))
 
 ;;====================================
 ;; VERTICO
 ;;====================================
 ;; Enable vertico
 (use-package vertico
+  :ensure t
   :init
   (vertico-mode)
 
@@ -338,6 +303,7 @@
 ;;====================================
 ;; Enable rich annotations using the Marginalia package
 (use-package marginalia
+  :ensure t
   ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
   ;; available in the *Completions* buffer, add it to the
   ;; `completion-list-mode-map'.
@@ -365,6 +331,7 @@
 ;; CONSULT
 ;;====================================
 (use-package consult
+  :ensure t
   :config
   ;; for evil minibuffer completition
   (setq completion-in-region-function 'consult-completion-in-region)
@@ -403,6 +370,7 @@
 ;; CITAR
 ;;====================================
 (use-package citar
+  :ensure t
   :custom
   (citar-bibliography '("~/org/bibliography.bib"))
   (org-cite-global-bibliography '("~/org/bibliography.bib"))
@@ -421,55 +389,11 @@
 
 (global-set-key (kbd "C-c b") 'citar-insert-citation)
 (use-package citar-embark
+  :ensure t
   :after citar embark
   :no-require
   :config (citar-embark-mode))
 
-;;====================================
-;; ORG ROAM
-;;====================================
-
-(use-package org-roam
-  :ensure t
-  :after org
-  :init
-  (setq org-roam-v2-ack t) ;; acknowledge upgrade and remove warning at startup
-  :config
-  (setq org-roam-directory
-	(file-truename "/home/migap/org/roam/"))
-  (setq org-roam-db-location
-	(concat org-roam-directory "org-roam.db"))
-  (org-roam-setup)
-  :bind
-  ("C-c n i" . org-roam-node-insert)
-  ("C-c n f" . org-roam-node-find)
-  ("C-c n l" . org-roam-buffer-toggle)
-  )
-
-;;====================================
-;; Ispell and hunspell config
-;;====================================
-
-(with-eval-after-load "ispell"
-  ;; Configure `LANG`, otherwise ispell.el cannot find a 'default
-  ;; dictionary' even though multiple dictionaries will be configured
-  ;; in next line.
-  (setenv "LANG" "en_US")
-  (setq ispell-program-name "hunspell")
-  ;; Configure English, French and Spanish.
-  (setq ispell-dictionary "en_US,fr_FR,es_ES")
-  ;; ispell-set-spellchecker-params has to be called
-  ;; before ispell-hunspell-add-multi-dic will work
-  (ispell-set-spellchecker-params)
-  (ispell-hunspell-add-multi-dic "en_US,fr_FR,es_ES")
-  ;; For saving words to the personal dictionary, don't infer it from
-  ;; the locale, otherwise it would save to ~/.hunspell_de_DE.
-  (setq ispell-personal-dictionary "~/.hunspell_personal"))
-
-;; The personal dictionary file has to exist, otherwise hunspell will
-;; silently not use it.
-;(unless (file-exists-p ispell-personal-dictionary)
-;  (write-region "" nil ispell-personal-dictionary nil 0))
 
 ;;====================================
 ;; Markdown mode
@@ -486,8 +410,8 @@
 ;;====================================
 ;; Projectile
 ;;====================================
-(projectile-mode +1)
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+;; (projectile-mode +1)
+;; (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 ;;====================================
 ;; ERC
@@ -511,23 +435,23 @@
 ;  (erc-tls :server "server2.example.com"
 ;           :port   "6697")))
 
-;; ;;====================================
-;; ;; SLIME
-;; ;;====================================
 
-;; (load (expand-file-name "~/.quicklisp/slime-helper.el"))
-;; (setq inferior-lisp-program "sbcl")
 
 ;;====================================
 ;; UNDO-TREE
 ;;====================================
-(setq undo-tree-auto-save-history nil)
+(use-package undo-tree
+  :ensure t
+  :config
+  
+  (setq undo-tree-auto-save-history nil))
 
 
 ;====================================
 ;; PDF-TOOLS
 ;;====================================
 (use-package pdf-tools
+   :ensure t 
    :pin manual
    :config
    (pdf-tools-install)
@@ -578,10 +502,11 @@
 ;; CITRE
 ;;====================================
 
-(require 'citre)
-(require 'citre-config)
+;; (require 'citre)
+;; (require 'citre-config)
 
 (use-package citre
+  :ensure t
   :defer t
   :init
   ;; This is needed in `:init' block for lazy load to work.
@@ -624,9 +549,13 @@
 ;; ELFEED
 ;;====================================
 
-(global-set-key (kbd "C-x w") 'elfeed)
+(use-package elfeed
+  :ensure t 
+  :config
+  (global-set-key (kbd "C-x w") 'elfeed)
 
-(load-file "~/repos/mine/dotfiles/elfeed-feeds.el")
+  ;; (load-file "~/repos/mine/dotfiles/elfeed-feeds.el")
+  )
 
 ;;====================================
 ;; ACE-WINDOW
@@ -648,3 +577,46 @@
 (use-package geiser
   :ensure t
 )
+
+;;====================================
+;; HEAVEN AND HELL
+;;====================================
+
+(use-package heaven-and-hell
+  :ensure t
+  :config
+  (setq heaven-and-hell-theme-type 'dark) ;; Omit to use light by default
+  (setq heaven-and-hell-themes
+        '((light . solarized-light)
+          (dark . solarized-dark))) ;; Themes can be the list: (dark . (tsdh-dark wombat))
+  ;; Optionall, load themes without asking for confirmation.
+  (setq heaven-and-hell-load-theme-no-confirm t)
+  :hook (after-init . heaven-and-hell-init-hook)
+  :bind (("C-c <f6>" . heaven-and-hell-load-default-theme)
+         ("<f6>" . heaven-and-hell-toggle-theme)))
+
+;;====================================
+;; Ispell and hunspell config
+;;====================================
+
+(with-eval-after-load "ispell"
+  ;; Configure `LANG`, otherwise ispell.el cannot find a 'default
+  ;; dictionary' even though multiple dictionaries will be configured
+  ;; in next line.
+  (setenv "LANG" "en_US")
+  (setq ispell-program-name "hunspell")
+  ;; Configure English, French and Spanish.
+  (setq ispell-dictionary "en_US,fr_FR,es_ES")
+  ;; ispell-set-spellchecker-params has to be called
+  ;; before ispell-hunspell-add-multi-dic will work
+  (ispell-set-spellchecker-params)
+  (ispell-hunspell-add-multi-dic "en_US,fr_FR,es_ES")
+  ;; For saving words to the personal dictionary, don't infer it from
+  ;; the locale, otherwise it would save to ~/.hunspell_de_DE.
+  (setq ispell-personal-dictionary "~/.hunspell_personal"))
+
+;; The personal dictionary file has to exist, otherwise hunspell will
+;; silently not use it.
+;(unless (file-exists-p ispell-personal-dictionary)
+;  (write-region "" nil ispell-personal-dictionary nil 0))
+
