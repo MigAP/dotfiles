@@ -118,8 +118,8 @@ fi
 
 # Emacs client configuration 
 export ALTERNATE_EDITOR=""
-#export EDITOR="emacsclient -c"                  # $EDITOR opens in terminal
-#export VISUAL="emacsclient -c -a emacs"         # $VISUAL opens in GUI mode
+export EDITOR="emacsclient -c"                  # $EDITOR opens in terminal
+export VISUAL="emacsclient -c -a emacs"         # $VISUAL opens in GUI mode
 
 # acados configuration 
 export ACADOS_INSTALL_DIR="/home/migap/gitRepos/acados"
@@ -129,20 +129,3 @@ export ACADOS_INSTALL_DIR="/home/migap/gitRepos/acados"
 
 # add custom scripts as commands 
 export PATH=$PATH:~/scripts
-export GAZEBO_MODEL_PATH=/home/migap/thesis/dextair/simulations/gazebo_models:$GAZEBO_MODEL_PATH
-. "$HOME/.cargo/env"
-
-# fzf completitions
-source /usr/share/doc/fzf/examples/key-bindings.bash
-source /usr/share/doc/fzf/examples/completion.bash
-
-# Automatically added by the Guix install script.
-if [ -n "$GUIX_ENVIRONMENT" ]; then
-    if [[ $PS1 =~ (.*)"\\$" ]]; then
-        PS1="${BASH_REMATCH[1]} [env]\\\$ "
-    fi
-fi
-
-# guix 
-GUIX_PROFILE="$HOME/.config/guix/current"
-. "$GUIX_PROFILE/etc/profile"

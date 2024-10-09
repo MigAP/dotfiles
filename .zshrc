@@ -29,7 +29,6 @@ bindkey -v
 bindkey '^R' history-incremental-search-backward
 bindkey -M viins 'kj' vi-cmd-mode
 
-
 export KEYTIMEOUT=10
 
 # Use vim keys in tab complete menu:
@@ -83,8 +82,7 @@ if [[ "dumb" == $TERM ]] ; then
   export TERM=xterm-256color
   unsetopt zle
 fi
-
-# Avoid Tramp from hanging
+# Avoid Tram from hanging
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
 
 # zsh completion 
