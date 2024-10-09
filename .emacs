@@ -155,7 +155,7 @@
   (setq org-roam-v2-ack t) ;; acknowledge upgrade and remove warning at startup
   :config
   (setq org-roam-directory
-	(file-truename "/home/arpaperm/org/roam/"))
+	(file-truename "/home/migap/org/roam/"))
   (setq org-roam-db-location
 	(concat org-roam-directory "org-roam.db"))
   (org-roam-setup)
@@ -256,7 +256,7 @@
   :ensure t
   :config
   
-  (setq org-ref-default-bibliography '("/home/arpaperm/org/bibliography.bib"))
+  (setq org-ref-default-bibliography '("/home/migap/org/bibliography.bib"))
   (setq org-ref-completion-library 'org-ref-ivy-cite)
   (require 'org-ref)
   (setq org-latex-prefer-user-labels t) ; to use my own references
