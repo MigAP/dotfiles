@@ -29,7 +29,8 @@ bindkey -v
 bindkey '^R' history-incremental-search-backward
 bindkey -M viins 'kj' vi-cmd-mode
 
-export KEYTIMEOUT=20
+
+export KEYTIMEOUT=10
 
 # Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
@@ -70,6 +71,10 @@ bindkey '^e' edit-command-line
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
 
+# EDITOR
+export EDITOR=vim
+export VISUAL="emacsclient -c -a emacs"         # $VISUAL opens in GUI mode
+
 # emacs M-x shell
 if [[ "dumb" == $TERM ]] ; then
   alias less='cat'
@@ -78,20 +83,15 @@ if [[ "dumb" == $TERM ]] ; then
   export TERM=xterm-256color
   unsetopt zle
 fi
+
 # Avoid Tramp from hanging
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
 
-# GUIX settings
+# zsh completion 
+fpath=(/home/migap/repos/others/zsh-completions/src $fpath)
 
-GUIX_PROFILE="/home/migap/.guix-profile"
-. "$GUIX_PROFILE/etc/profile"
-export GUIX_LOCPATH=$HOME/.guix-profile/lib/locale
-
-GUILE_LOAD_PATH="/home/migap/.guix-profile/share/guile/site/3.0" # import modules installed with guix
-
-# add custom scripts
-export PATH=$PATH:~/scripts
+# PATH config 
+export PATH=$PATH:/home/migap/scripts
 
 # End of lines configured by zsh-newuser-install
-source /home/migap/gitRepos/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
+source /home/migap/repos/others/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

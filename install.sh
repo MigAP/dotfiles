@@ -5,10 +5,9 @@
 
 ########## Variables
 
-dir=~/dotfiles                    # dotfiles directory
+dir=/home/migap/repos/mine/dotfiles   # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-#files="bashrc vimrc vim zshrc oh-my-zsh"    # list of files/folders to symlink in homedir
-files="bashrc bash_aliases emacs vimrc"    # list of files/folders to symlink in homedir
+files=".emacs .tmux.conf .vimrc .xinitrc .Xmodmap .zshrc" # list of files/folders to symlink in homedir
 
 ##########
 
@@ -25,7 +24,7 @@ echo "...done"
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
 for file in $files; do
     echo "Moving any existing dotfiles from ~ to $olddir"
-    mv ~/.$file ~/dotfiles_old/
+    mv ~/$file ~/dotfiles_old/
     echo "Creating symlink to $file in home directory."
-    ln -nfs $dir/$file ~/.$file
+    ln -nfs $dir/$file ~/$file
 done
