@@ -74,6 +74,25 @@
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
 ;;====================================
+;; DIRED and DIRED-X
+;;====================================
+
+;; Dired 
+(setq delete-by-moving-to-trash t)
+(setq dired-dwim-target t) ; copy to split direction
+
+(with-eval-after-load 'dired
+  (require 'dired-x)
+  ;; Set dired-x global variables here.  For example:
+  ;; (setq dired-x-hands-off-my-keys nil)
+  )
+(add-hook 'dired-mode-hook
+          (lambda ()
+            ;; Set dired-x buffer-local variables here.  For example:
+            (dired-omit-mode 1)
+            ))
+
+;;====================================
 ;; SOLARIZED
 ;;====================================
 
