@@ -200,6 +200,7 @@
   :config
   (yas-reload-all)
   (add-hook 'octave-mode-hook 'yas-minor-mode)
+  (add-hook 'matlab-mode-hook 'yas-minor-mode)
   (add-hook 'LaTeX-mode-hook 'yas-minor-mode)
   (add-hook 'scheme-mode-hook 'yas-minor-mode)
   (add-hook 'c-mode-common-hook 'yas-minor-mode)
