@@ -1,10 +1,11 @@
 # Enable colors and change prompt:
 autoload -U colors && colors
-PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}
+$%b "
 
 zstyle ':completion:*' completer _complete _ignored
 zstyle ':completion:*' max-errors 3
-zstyle :compinstall filename '/home/migap/.zshrc'
+zstyle :compinstall filename '/home/arpaperm/.zshrc'
 
 autoload -Uz compinit promptinit
 zstyle ':completion:*' menu select
