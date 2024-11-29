@@ -87,10 +87,10 @@ fi
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
 
 # zsh completion 
-fpath=(/home/migap/repos/others/zsh-completions/src $fpath)
+fpath=(/home/arpaperm/repos/others/zsh-completions/src $fpath)
 
 # PATH config 
-export PATH=$PATH:/home/migap/scripts
+export PATH=$PATH:/home/arpaperm/scripts
 
 # End of lines configured by zsh-newuser-install
-source /home/migap/repos/others/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/arpaperm/repos/others/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
