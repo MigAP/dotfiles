@@ -247,7 +247,7 @@
   :ensure t
   :config
   
-  (setq org-ref-default-bibliography '("/home/migap/org/bibliography.bib"))
+  (setq org-ref-default-bibliography '("/home/arpaperm/org/bibliography.bib"))
   (setq org-ref-completion-library 'org-ref-ivy-cite)
   (require 'org-ref)
   (setq org-latex-prefer-user-labels t) ; to use my own references
