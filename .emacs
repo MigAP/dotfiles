@@ -63,16 +63,6 @@
 (bind-key* (kbd "C-c C-m") #'compile)
 
 
-;; pdf-tools remap vim navigation keybindings
-(add-hook 'pdf-view-mode-hook
-	  (lambda ()
-	    (local-set-key (kbd "j") #'pdf-view-next-line-or-next-page)
-	    (local-set-key (kbd "k") #'pdf-view-previous-line-or-previous-page)
-	    (local-set-key (kbd "l") #'image-forward-hscroll)
-	    (local-set-key (kbd "h") #'image-backward-hscroll)
-	    (local-set-key (kbd "J") #'pdf-view-next-page)
-	    (local-set-key (kbd "K") #'pdf-view-previous-page)))
-
 ;; Vim mode navigation
 (bind-key* (kbd "M-h") #'backward-char)
 (bind-key* (kbd "M-j") #'next-line)
@@ -453,12 +443,20 @@
 ;;====================================
 (use-package pdf-tools
    :ensure t 
-   :pin manual
+   ;; :pin manual
    :config
    (pdf-tools-install)
    (setq-default pdf-view-display-size 'fit-width)
    (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward)
-   (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
+   ;; pdf-tools remap vim navigation keybindings 
+   (add-hook 'pdf-view-mode-hook
+	     (lambda ()
+	       (local-set-key (kbd "j") #'pdf-view-next-line-or-next-page)
+	       (local-set-key (kbd "k") #'pdf-view-previous-line-or-previous-page)
+	       (local-set-key (kbd "l") #'image-forward-hscroll)
+	       (local-set-key (kbd "h") #'image-backward-hscroll)
+	       (local-set-key (kbd "J") #'pdf-view-next-page)
+	       (local-set-key (kbd "K") #'pdf-view-previous-page)))
    :custom
    (pdf-annot-activate-created-annotations t "automatically annotate highlights"))
 
