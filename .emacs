@@ -155,7 +155,7 @@
   (setq org-roam-v2-ack t) ;; acknowledge upgrade and remove warning at startup
   :config
   (setq org-roam-directory
-	(file-truename "/home/migap/org/roam/"))
+	(file-truename "/home/arpaperm/org/roam/"))
   (setq org-roam-db-location
 	(concat org-roam-directory "org-roam.db"))
   (org-roam-setup)
