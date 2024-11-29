@@ -59,10 +59,6 @@
 (setq c-default-style "k&r")
 
 
-; key-binding for compilation
-(bind-key* (kbd "C-c C-m") #'compile)
-
-
 ;; Vim mode navigation
 (bind-key* (kbd "M-h") #'backward-char)
 (bind-key* (kbd "M-j") #'next-line)
