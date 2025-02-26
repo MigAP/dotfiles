@@ -89,6 +89,30 @@
 ;; (define-key dired-mode-map (kbd "h") 'dired-up-directory)
 ;; (define-key dired-mode-map (kbd "l") 'dired-find-file)
 
+;;;; Config from Protesilaos :
+;;; https://protesilaos.com/codelog/2023-06-26-emacs-file-dired-basics/
+
+;; When you first call `find-file' (C-x C-f by default), you do not
+;; need to clear the existing file path before adding the new one.
+;; Just start typing the whole path and Emacs will "shadow" the
+;; current one.  For example, you are at ~/Documents/notes/file.txt
+;; and you want to go to ~/.emacs.d/init.el: type the latter directly
+;; and Emacs will take you there.
+(file-name-shadow-mode 1)
+
+;; Do not outright delete files.  Move them to the system trash
+;; instead.  The `trashed' package can act on them in a Dired-like
+;; fashion.  I use it and can recommend it to either restore (R) or
+;; permanently delete (D) the files.
+(setq delete-by-moving-to-trash t)
+
+;; When there are two Dired buffers side-by-side make Emacs
+;; automatically suggest the other one as the target of copy or rename
+;; operations.  Remember that you can always use M-p and M-n in the
+;; minibuffer to cycle through the history, regardless of what this
+;; does.  (The "dwim" stands for "Do What I Mean".)
+(setq dired-dwim-target t)
+
 ;;====================================
 ;;ORG MODE
 ;;====================================
