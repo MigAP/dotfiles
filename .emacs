@@ -115,6 +115,13 @@
  'org-babel-load-languages
  '((python . t)
    (shell . t)
+   (C . t )
+   (awk . t)
+   (gnuplot . t)
+   (julia .t )
+   (matlab . t )
+   (octave . t )
+   (scheme . t) 
    ))
 
 ;; Do not ask for confirmation all the time!!
