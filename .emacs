@@ -145,6 +145,9 @@
 ; enable visual line mode by default in org files
 (add-hook 'org-mode-hook 'turn-on-visual-line-mode)
 
+; require org-mode structure templates aka "snippets"
+(require 'org-tempo)
+
 ;;====================================
 ;;ORG CAPTURE
 ;;====================================
