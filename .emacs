@@ -682,3 +682,20 @@
 (use-package geiser
   :ensure t
 )
+
+;;====================================
+;; HEAVEN AND HELL
+;;====================================
+
+(use-package heaven-and-hell
+  :ensure t
+  :config
+  (setq heaven-and-hell-theme-type 'dark) ;; Omit to use light by default
+  (setq heaven-and-hell-themes
+        '((light . solarized-light)
+          (dark . solarized-dark))) ;; Themes can be the list: (dark . (tsdh-dark wombat))
+  ;; Optionall, load themes without asking for confirmation.
+  (setq heaven-and-hell-load-theme-no-confirm t)
+  :hook (after-init . heaven-and-hell-init-hook)
+  :bind (("C-c <f6>" . heaven-and-hell-load-default-theme)
+         ("<f6>" . heaven-and-hell-toggle-theme)))
