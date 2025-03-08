@@ -129,8 +129,7 @@
  'org-babel-load-languages
  '((python . t)
    (shell . t)
-   (c . t )
-   (cpp . t)
+   (C . t )
    (awk . t)
    (gnuplot . t)
    (julia .t )
@@ -159,6 +158,9 @@
 
 ; enable visual line mode by default in org files
 (add-hook 'org-mode-hook 'turn-on-visual-line-mode)
+
+; enable "structure-templates" aka snippets from org-mode
+(require 'org-tempo)
 
 ;;====================================
 ;;ORG CAPTURE
