@@ -246,6 +246,13 @@
   (setq-default evil-escape-key-sequence "kj")
   )
 
+;;====================================
+;;EVIL-SURROUND
+;;====================================
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
 
 ;;====================================
 ;; KEY-CHORD
