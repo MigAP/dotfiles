@@ -56,7 +56,10 @@
 (server-start)
 
 ; Indentation style for CC Mode
-(setq c-default-style "k&r")
+(setq c-default-style
+      '((arduino/* . "k&r")
+        (awk-mode . "awk")
+        (other . "k&r")))
 
 
 ;; Vim mode navigation
@@ -86,6 +89,7 @@
           (lambda ()
             ;; Set dired-x buffer-local variables here.  For example:
             (dired-omit-mode 1)
+	    (setq dired-omit-extensions (remove ".mo" dired-omit-extensions))
             ))
 
 ;;====================================
@@ -206,6 +210,14 @@
   (evil-escape-mode)
   (setq-default evil-escape-key-sequence "kj")
   )
+
+;;====================================
+;;EVIL-SURROUND
+;;====================================
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
 
 ;;====================================
 ;; YAsnippet
@@ -554,7 +566,7 @@
 
    ;; Set this if you use project management plugin like projectile.  It's
    ;; used for things like displaying paths relatively, see its docstring.
-   citre-project-root-function #'projectile-project-root
+   ;; citre-project-root-function #'projectile-project-root
 
    ;; Set this if you want to always use one location to create a tags file.
    ;; citre-default-create-tags-file-location 'global-cache
@@ -566,7 +578,7 @@
    ;; By default, when you open any file, and a tags file can be found for it,
    ;; `citre-mode' is automatically enabled.  If you only want this to work for
    ;; certain modes (like `prog-mode'), set it like this.
-   ;; citre-auto-enable-citre-mode-modes '(prog-mode)
+   citre-auto-enable-citre-mode-modes '(prog-mode)
    ))
 
 ;;====================================
@@ -644,3 +656,29 @@
 ;(unless (file-exists-p ispell-personal-dictionary)
 ;  (write-region "" nil ispell-personal-dictionary nil 0))
 
+;;====================================
+;; ADOC-MODE
+;;====================================
+
+(use-package adoc-mode
+  :ensure t)
+
+;;====================================
+;; Modelica
+;;====================================
+
+(use-package modelica-mode
+  :load-path "~/repos/others/modelica-mode/"
+  :commands (modelica-mode)
+  :mode ("\\.mo\\'" . modelica-mode))
+
+;;====================================
+;; Arduino
+;;====================================
+
+(use-package arduino-mode
+  :config
+  (add-hook 'arduino-mode-hook
+	    (lambda ()
+	      (set (make-local-variable 'c-basic-offset) 4)
+	      (set (make-local-variable 'tab-width) 4))))
