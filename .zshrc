@@ -1,6 +1,6 @@
 # Enable colors and change prompt:
 autoload -U colors && colors
-PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%} "$'\n'"$%b "
 
 zstyle ':completion:*' completer _complete _ignored
 zstyle ':completion:*' max-errors 3
@@ -66,9 +66,8 @@ bindkey '^e' edit-command-line
 # Load aliases and shortcuts if existent.
 [ -f "$HOME/.bash_aliases" ] && source "$HOME/.bash_aliases"
 
-# FZF
-source /usr/share/doc/fzf/examples/key-bindings.zsh
-source /usr/share/doc/fzf/examples/completion.zsh
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 
 # EDITOR
 export EDITOR=vim
@@ -86,10 +85,20 @@ fi
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
 
 # zsh completion 
-fpath=(/home/migap/repos/others/zsh-completions/src $fpath)
+fpath=(/Users/miguelarpaperozo/repos/others/zsh-completions/src $fpath)
 
 # PATH config 
 export PATH=$PATH:/home/migap/scripts
 
 # End of lines configured by zsh-newuser-install
-source /home/migap/repos/others/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /Users/miguelarpaperozo/repos/others/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+
+# >>> juliaup initialize >>>
+
+# !! Contents within this block are managed by juliaup !!
+
+path=('/Users/miguelarpaperozo/.juliaup/bin' $path)
+export PATH
+
+# <<< juliaup initialize <<<
