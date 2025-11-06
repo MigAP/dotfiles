@@ -1,3 +1,6 @@
+# zsh completion 
+fpath=(/home/arpaperm/repos/others/zsh-completions/src $fpath)
+
 # Enable colors and change prompt:
 autoload -U colors && colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}
@@ -86,11 +89,13 @@ fi
 # Avoid Tram from hanging
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
 
-# zsh completion 
-fpath=(/home/arpaperm/repos/others/zsh-completions/src $fpath)
 
 # PATH config 
-export PATH=$PATH:/home/arpaperm/scripts
+export PATH=$PATH:/home/arpaperm/scripts:/home/arpaperm/.local/bin
+
+# ROS2
+#source /opt/ros/jazzy/setup.zsh
+loadros2 () { source /opt/ros/jazzy/setup.zsh }
 
 # End of lines configured by zsh-newuser-install
 source /home/arpaperm/repos/others/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
