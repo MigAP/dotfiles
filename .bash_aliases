@@ -14,4 +14,5 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias zotero='/home/migap/software/Zotero_linux-x86_64/zotero &'
+alias zotero='/home/arpaperm/software/Zotero_linux-x86_64/zotero &'
+alias ac="arduino-cli"
