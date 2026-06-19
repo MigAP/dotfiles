@@ -94,8 +94,41 @@ fi
 export PATH=$PATH:/home/arpaperm/scripts:/home/arpaperm/.local/bin
 
 # ROS2
-#source /opt/ros/jazzy/setup.zsh
+# argcomplete for ros2 & colcon
+source /opt/ros/jazzy/setup.zsh
+eval "$(register-python-argcomplete ros2)"
+eval "$(register-python-argcomplete colcon)"
 loadros2 () { source /opt/ros/jazzy/setup.zsh }
+
+# arduino-cli 
+#ac () { arduino-cli "$@" }
+
+# Emacs vterm configuration
+vterm_printf() {
+    if [ -n "$TMUX" ] \
+        && { [ "${TERM%%-*}" = "tmux" ] \
+            || [ "${TERM%%-*}" = "screen" ]; }; then
+        # Tell tmux to pass the escape sequences through
+        printf "\ePtmux;\e\e]%s\007\e\\" "$1"
+    elif [ "${TERM%%-*}" = "screen" ]; then
+        # GNU screen (screen, screen-256color, screen-256color-bce)
+        printf "\eP\e]%s\007\e\\" "$1"
+    else
+        printf "\e]%s\e\\" "$1"
+    fi
+}
+
+if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
+    alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
+fi
+
+# Julia
+export JULIA_NUM_THREADS=10
+
+# Pi Pico
+source picoenv.sh
 
 # End of lines configured by zsh-newuser-install
 source /home/arpaperm/repos/others/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+export PATH="/home/arpaperm/.pixi/bin:$PATH"
